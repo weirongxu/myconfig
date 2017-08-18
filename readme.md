@@ -3,14 +3,14 @@
 ./install.sh
 ```
 
-# 应用配置
+# 更新配置到$HOME
 ```shell
-./script.py update
+./script.py update-to-home
 ```
 
-# 提交配置
+# 从$HOME同步配置
 ```shell
-./script.py push
+./script.py fetch-from-home
 ```
 
 # TODO
