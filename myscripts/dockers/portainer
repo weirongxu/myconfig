@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [[ $1 -ne 'rm' || "$(docker ps -a -q -f name=portainer)" ]]; then
+  docker start portainer
+else
+  docker run --rm --name=portainer -d -p 9080:9000 -v "/var/run/docker.sock:/var/run/docker.sock" portainer/portainer
+fi
+echo 'portainer run at localhost:9080'

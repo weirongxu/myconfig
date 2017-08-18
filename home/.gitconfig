@@ -1,0 +1,13 @@
+[user]
+	name = Weirong Xu
+	email = weirongxu.raidou@gmail.com
+[credential]
+	helper = store
+[core]
+	quotepath = false
+	editor = vim
+  excludesfile = ~/.gitignore
+[github]
+	user = weirongxu
+[push]
+	default = simple

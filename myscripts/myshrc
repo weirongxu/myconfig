@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+. "$MYSCRIPTS_HOME/common.sh"
+
+source_myscript "alias.sh"
+source_myscript "variables.sh"
+source_myscript "myscripts.sh"
