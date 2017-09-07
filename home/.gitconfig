@@ -6,7 +6,8 @@
 [core]
 	quotepath = false
 	editor = vim
-  excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
+	ignorecase = false
 [github]
 	user = weirongxu
 [push]
