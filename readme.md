@@ -1,14 +1,14 @@
-# 安装python依赖
+# Install python dependencies
 ```shell
 ./install.sh
 ```
 
-# 更新配置到$HOME
+# update configuration to $HOME
 ```shell
 ./script.py update-to-home
 ```
 
-# 从$HOME同步配置
+# from $HOME synchronize configuration
 ```shell
 ./script.py fetch-from-home
 ```
