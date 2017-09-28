@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from cleo import Application, Command
-from pathlib import PurePosixPath
+from pathlib import PurePath
 import textwrap
 import shutil
 import glob
@@ -34,6 +34,8 @@ sync_paths = [
 
     '.vimrc',
     '.config/nvim/init.vim',
+
+    '.spacemacs',
 ]
 
 china_sync_paths = [
@@ -51,7 +53,7 @@ def copy_by_glob(self, source_home, paths, target_home):
         for filepath in glob.glob(os.path.join(source_home, path), recursive=True):
             if any([(ignore in filepath) for ignore in ignores]):
                 continue
-            relative_path = PurePosixPath(filepath).relative_to(source_home)
+            relative_path = PurePath(filepath).relative_to(source_home)
             target_path = os.path.join(target_home, str(relative_path))
             if os.path.isfile(filepath):
                 os.makedirs(os.path.dirname(target_path), exist_ok=True)
