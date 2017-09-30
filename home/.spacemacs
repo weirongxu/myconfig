@@ -64,7 +64,6 @@ values."
     (vue-mode :location (recipe
                          :fetcher github
                          :repo "codefalling/vue-mode"))
-    evil-tabs
     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -326,7 +325,6 @@ you should place your code here."
   (setq-default js2-strict-trailing-comma-warning nil)
   (defun dotspacemacs/init-vue-mode ()
     (use-package vue-mode))
-  (global-evil-tabs-mode t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
