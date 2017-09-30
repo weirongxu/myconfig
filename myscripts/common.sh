@@ -43,7 +43,7 @@ is_apt() {
 }
 
 add_path() {
-  if [[ -s "$1" ]]; then
+  if [[ -d "$1" ]]; then
     export PATH="$1:$PATH"
   fi
 }
