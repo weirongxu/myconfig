@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-if created-container $1 'debian' ; then
+if exists-container 'debian' ; then
   docker start -i debian
 else
-  docker run --name debian -it debian bash
+  docker run --name debian -v /:/outside -it debian bash -c "cd /outside"
 fi
