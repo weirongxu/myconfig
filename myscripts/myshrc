@@ -2,7 +2,7 @@
 
 . "$MYSCRIPTS_HOME/common.sh"
 
-source_myscript "funcs/index.sh"
+source_myscript "commands/index.sh"
 source_myscript "alias.sh"
 source_myscript "variables.sh"
 source_myscript "myscripts.sh"
