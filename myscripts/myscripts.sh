@@ -41,7 +41,7 @@ _myscripts_list_all() {
 
 _myscripts_list() {
   echo 'runner list'
-  if [[ "$1" -eq '--all' ]]; then
+  if [[ "$1" == "--all" ]]; then
     _myscripts_list_all
   else
     _myscripts_list_all | sed -n 1,15p
