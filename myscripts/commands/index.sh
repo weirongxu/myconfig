@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-source_myscript "commands/docker.sh"
+add_myscript_path "commands/docker"

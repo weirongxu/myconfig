@@ -2,5 +2,5 @@
 if exists-container 'debian' ; then
   docker start -i debian
 else
-  docker run --name debian -v /:/outside -it debian bash -c "cd /outside"
+  docker run --name debian -v /:/outside -it debian bash
 fi

@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-add_myscript_path 'dockers'
-
 add_path "$HOME/bin"
 
 source_myscript 'variables/android.sh'
