@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+you-get -p mpv $*
