@@ -9,6 +9,7 @@ source_myscript 'variables/python.sh'
 source_myscript 'variables/ruby.sh'
 source_myscript 'variables/vim.sh'
 source_myscript 'variables/brew.sh'
+source_myscript 'variables/golang.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
   source_myscript "variables/china.sh"
 fi
