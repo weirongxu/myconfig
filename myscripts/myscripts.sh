@@ -32,8 +32,10 @@ _myscripts_scripts_path_root() {
 _myscripts_list_all() {
   all_path() {
     for _path in $(_myscripts_scripts_path_root); do
-      find $_path -type f -print | sed -e "s;^$_path/;;g;"
-    done 
+      if [ -d $_path  ]; then
+        find $_path -type f -print | sed -e "s;^$_path/;;g;"
+      fi
+    done
   }
   all_path | sed -e 's;\..*?$;;g;s;.*\.DS_Store.*;;' | sed '/^\s*$/d' \
     | sed -e 's;^;  - ;' | sort | uniq
