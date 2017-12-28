@@ -4,5 +4,5 @@
 
 source_myscript "commands/index.sh"
 source_myscript "alias.sh"
-source_myscript "variables.sh"
+source_myscript "boot.sh"
 source_myscript "myscripts.sh"
