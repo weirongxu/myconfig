@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 add_path "$HOME/bin"
 
-source_myscript 'variables/android.sh'
-source_myscript 'variables/java.sh'
-source_myscript 'variables/nodejs.sh'
-source_myscript 'variables/php.sh'
-source_myscript 'variables/python.sh'
-source_myscript 'variables/ruby.sh'
-source_myscript 'variables/vim.sh'
-source_myscript 'variables/brew.sh'
-source_myscript 'variables/golang.sh'
+source_myscript 'environment/android.sh'
+source_myscript 'environment/java.sh'
+source_myscript 'environment/nodejs.sh'
+source_myscript 'environment/php.sh'
+source_myscript 'environment/python.sh'
+source_myscript 'environment/ruby.sh'
+source_myscript 'environment/vim.sh'
+source_myscript 'environment/brew.sh'
+source_myscript 'environment/golang.sh'
+source_myscript 'environment/rust.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
-  source_myscript "variables/china.sh"
+  source_myscript "environment/china.sh"
 fi
 if is_zsh; then
-  source_myscript 'variables/zsh.zsh'
+  source_myscript 'environment/zsh.zsh'
 fi
 
 try_source "$HOME/Programs/rc.sh"
