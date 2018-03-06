@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-add_myscript_path "$HOME/.composer/vendor/bin"
+add_path "$HOME/.config/composer/vendor/bin"
