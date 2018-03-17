@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-# add_path "$HOME/.cargo/bin"
-try_source "$HOME/.cargo/env"
+# add-path "$HOME/.cargo/bin"
+try-source "$HOME/.cargo/env"

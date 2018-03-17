@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-add_myscript_path "commands/common"
-add_myscript_path "commands/docker"
+add-myscript-path "commands/common"
+add-myscript-path "commands/docker"

@@ -18,46 +18,46 @@ elif [ -n "$BASH_VERSION" ]; then
   export SHELL_TYPE='bash'
 fi
 
-is_zsh() {
+is-zsh() {
   [[ "$SHELL_TYPE" == 'zsh' ]]
 }
 
-exists_cmd() {
+exists-cmd() {
   command -v $1 >/dev/null 2>&1
 }
 
-is_darwin() {
+is-darwin() {
   [[ "$SYSTEM_TYPE" == 'darwin' ]]
 }
 
-is_linux() {
+is-linux() {
   [[ "$SYSTEM_TYPE" == 'linux' ]]
 }
 
-is_brew() {
-  exists_cmd 'brew'
+is-brew() {
+  exists-cmd 'brew'
 }
 
-is_apt() {
-  exists_cmd 'apt'
+is-apt() {
+  exists-cmd 'apt'
 }
 
-add_path() {
+add-path() {
   if [[ -d "$1" ]]; then
     export PATH="$1:$PATH"
   fi
 }
 
-add_myscript_path() {
-  add_path "$MYSCRIPTS_HOME/$1"
+add-myscript-path() {
+  add-path "$MYSCRIPTS_HOME/$1"
 }
 
-try_source() {
+try-source() {
   if [[ -s "$1" ]]; then
     . "$1"
   fi
 }
 
-source_myscript() {
-  try_source "$MYSCRIPTS_HOME/$1"
+source-myscript() {
+  try-source "$MYSCRIPTS_HOME/$1"
 }

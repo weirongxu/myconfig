@@ -1,2 +1,2 @@
-add_path "$HOME/.rvm/bin"
-try_source "$HOME/.rvm/scripts/rvm"
+add-path "$HOME/.rvm/bin"
+try-source "$HOME/.rvm/scripts/rvm"

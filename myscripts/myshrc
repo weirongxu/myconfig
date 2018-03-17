@@ -2,7 +2,7 @@
 
 . "$MYSCRIPTS_HOME/common.sh"
 
-source_myscript "commands/index.sh"
-source_myscript "alias.sh"
-source_myscript "boot.sh"
-source_myscript "myscripts.sh"
+source-myscript "commands/index.sh"
+source-myscript "alias.sh"
+source-myscript "boot.sh"
+source-myscript "myscripts.sh"

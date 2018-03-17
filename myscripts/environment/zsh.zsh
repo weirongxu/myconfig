@@ -2,7 +2,7 @@
 
 fpath+=~/.zfunc
 
-if exists_cmd upgrade_oh_my_zsh; then
+if exists-cmd upgrade_oh_my_zsh; then
   local plugins=(
     git git-extras
     composer laravel

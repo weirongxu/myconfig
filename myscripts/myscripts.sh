@@ -14,16 +14,16 @@ EOF
 }
 
 _myscripts_scripts_path_root() {
-  if is_linux; then
+  if is-linux; then
     echo "$MYSCRIPTS_SCRIPTS_DIR/linux"
   fi
-  if is_darwin; then
+  if is-darwin; then
     echo "$MYSCRIPTS_SCRIPTS_DIR/darwin"
   fi
-  if is_apt; then
+  if is-apt; then
     echo "$MYSCRIPTS_SCRIPTS_DIR/apt"
   fi
-  if is_brew; then
+  if is-brew; then
     echo "$MYSCRIPTS_SCRIPTS_DIR/brew"
   fi
   echo "$MYSCRIPTS_SCRIPTS_DIR/common"

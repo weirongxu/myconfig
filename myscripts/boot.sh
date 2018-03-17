@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
-add_path "$HOME/bin"
+add-path "$HOME/bin"
 
-source_myscript 'environment/android.sh'
-source_myscript 'environment/java.sh'
-source_myscript 'environment/nodejs.sh'
-source_myscript 'environment/php.sh'
-source_myscript 'environment/python.sh'
-source_myscript 'environment/ruby.sh'
-source_myscript 'environment/vim.sh'
-source_myscript 'environment/brew.sh'
-source_myscript 'environment/golang.sh'
-source_myscript 'environment/rust.sh'
+source-myscript 'environment/brew.sh'
+source-myscript 'environment/android.sh'
+source-myscript 'environment/java.sh'
+source-myscript 'environment/nodejs.sh'
+source-myscript 'environment/php.sh'
+source-myscript 'environment/python.sh'
+source-myscript 'environment/ruby.sh'
+source-myscript 'environment/vim.sh'
+source-myscript 'environment/golang.sh'
+source-myscript 'environment/rust.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
-  source_myscript "environment/china.sh"
+  source-myscript "environment/china.sh"
 fi
-if is_zsh; then
-  source_myscript 'environment/zsh.zsh'
+if is-zsh; then
+  source-myscript 'environment/zsh.zsh'
 fi
 
-try_source "$HOME/Programs/rc.sh"
-try_source "$HOME/programs/rc.sh"
-try_source "$HOME/.fzf.zsh"
+try-source "$HOME/Programs/rc.sh"
+try-source "$HOME/programs/rc.sh"
+try-source "$HOME/.fzf.zsh"
