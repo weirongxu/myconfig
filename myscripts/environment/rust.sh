@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
-# add-path "$HOME/.cargo/bin"
 try-source "$HOME/.cargo/env"
+RUST_BIN=$HOME/.cargo/bin
+if ! has-path "$RUST_BIN"; then
+  add-path "$HOME/.cargo/bin"
+fi
