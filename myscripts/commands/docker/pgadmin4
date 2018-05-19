@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+if exists-container 'pgadmin4' ; then
+  docker start pgadmin4
+else
+  record_path=$HOME/.record/pgadmin4
+  mkdir $record_path
+  sudo chmod o=rwX $record_path
+  sudo chown $USER:$USER $record_path
+  docker run --name=pgadmin4 -d -p 5050:5050 \
+    -v $record_path:/pgadmin:rw \
+    thajeztah/pgadmin4
+fi
+echo 'pgadmin4 run at localhost:5050'
