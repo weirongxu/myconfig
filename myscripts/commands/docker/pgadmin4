@@ -6,8 +6,8 @@ else
   mkdir $record_path
   sudo chmod o=rwX $record_path
   sudo chown $USER:$USER $record_path
-  docker run --name=pgadmin4 -d -p 5050:5050 \
+  docker run --name=pgadmin4 -d -p 127.0.0.1:5050:5050 \
     -v $record_path:/pgadmin:rw \
     thajeztah/pgadmin4
 fi
-echo 'pgadmin4 run at localhost:5050'
+echo 'pgadmin4 run at 127.0.0.1:5050'
