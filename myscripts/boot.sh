@@ -18,6 +18,5 @@ if is-zsh; then
   source-myscript 'environment/zsh.zsh'
 fi
 
-try-source "$HOME/Programs/rc.sh"
-try-source "$HOME/programs/rc.sh"
+try-source "$HOME/apps/rc.sh"
 try-source "$HOME/.fzf.zsh"
