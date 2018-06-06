@@ -1,32 +1,34 @@
 #!/usr/bin/env fish
 
-function try_bass_source
-  if test -s $argv[1]
-    bass source $argv[1]
+if type -q "bass"
+  function try-bass-source
+    if test -s $argv[1]
+      bass source $argv[1]
+    end
   end
-end
 
-function try_bass_source-myscript
-  try_bass_source "$MYSCRIPTS_HOME/$argv[1]"
-end
-
-function try-source
-  if test -s $argv[1]
-    . $argv[1]
+  function try-bass-source-myscript
+    try-bass-source "$MYSCRIPTS_HOME/$argv[1]"
   end
-end
 
-function source-myscript
-  try-source "$MYSCRIPTS_HOME/$argv[1]"
-end
+  function try-source
+    if test -s $argv[1]
+      . $argv[1]
+    end
+  end
 
-bass export CHINA_PROXY=$CHINA_PROXY >/dev/null
-bass export MYSCRIPTS_HOME=$MYSCRIPTS_HOME
-try_bass_source "$MYSCRIPTS_HOME/myshrc"
-source-myscript "fish/git.fish"
+  function source-myscript
+    try-source "$MYSCRIPTS_HOME/$argv[1]"
+  end
 
-function myscripts
-  bass source "$MYSCRIPTS_HOME/common.sh" ";" \
-    source "$MYSCRIPTS_HOME/myscripts.sh" ";" \
-    myscripts $argv
+  bass export CHINA_PROXY=$CHINA_PROXY >/dev/null
+  bass export MYSCRIPTS_HOME=$MYSCRIPTS_HOME
+  try-bass-source "$MYSCRIPTS_HOME/myshrc"
+  source-myscript "fish/git.fish"
+
+  function myscripts
+    bass source "$MYSCRIPTS_HOME/common.sh" ";" \
+      source "$MYSCRIPTS_HOME/myscripts.sh" ";" \
+      myscripts $argv
+  end
 end

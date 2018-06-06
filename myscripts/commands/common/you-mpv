@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-you-get -p mpv $*
+youtube-dl -q -o- "$*" | mpv -

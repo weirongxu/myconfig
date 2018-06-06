@@ -42,6 +42,10 @@ is-apt() {
   exists-cmd 'apt'
 }
 
+has-path() {
+  [[ ":$PATH:" == *":$1:"* ]]
+}
+
 add-path() {
   if [[ -d "$1" ]]; then
     export PATH="$1:$PATH"

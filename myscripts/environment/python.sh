@@ -7,5 +7,5 @@ if exists-cmd brew; then
   export LDFLAGS="-L$(brew --prefix openssl)/lib"
 fi
 if exists-cmd pyenv; then
-  add-path $(pyenv root)/shims
+  eval "$(pyenv init -)"
 fi
