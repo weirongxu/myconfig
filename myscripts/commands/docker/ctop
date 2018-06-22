@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if exists-container 'ctop' ; then
+  docker start -i ctop
+else
+  docker run -ti \
+    --name=ctop \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    quay.io/vektorlab/ctop:latest
+fi
