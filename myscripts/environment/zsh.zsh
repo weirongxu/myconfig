@@ -2,6 +2,8 @@
 
 fpath+=~/.zfunc
 
+try-source /etc/zsh_command_not_found
+
 if exists-cmd upgrade_oh_my_zsh; then
   local plugins=(
     git git-extras
