@@ -16,7 +16,7 @@ if [[ ! -z $CHINA_PROXY ]]; then
 fi
 if is-zsh; then
   source-myscript 'environment/zsh.zsh'
+  try-source "$HOME/.fzf.zsh"
 fi
 
 try-source "$HOME/apps/rc.sh"
-try-source "$HOME/.fzf.zsh"
