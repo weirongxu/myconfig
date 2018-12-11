@@ -22,6 +22,10 @@ is-zsh() {
   [[ "$SHELL_TYPE" == 'zsh' ]]
 }
 
+is-fish() {
+  [[ "$SHELL_TYPE" == 'fish' ]]
+}
+
 exists-cmd() {
   command -v $1 >/dev/null 2>&1
 }
