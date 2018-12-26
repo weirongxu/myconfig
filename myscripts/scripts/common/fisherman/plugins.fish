@@ -1,2 +1,11 @@
 #!/usr/bin/env fish
-fisher z omf/foreign-env git_util omf/theme-default nvm rvm docker-completion
+echo > ~/.config/fish/fishfile "\
+jethrokuan/z
+jorgebucaran/fish-git-util
+oh-my-fish/theme-default
+edc/bass
+FabioAntunes/fish-nvm
+oh-my-fish/plugin-foreign-env
+oh-my-fish/plugin-rvm
+"
+fisher
