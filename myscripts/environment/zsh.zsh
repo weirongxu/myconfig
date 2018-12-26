@@ -11,12 +11,12 @@ if exists-cmd upgrade_oh_my_zsh; then
     node npm nvm
     pip python
     rvm rails bundler rake gem
-    zsh-autosuggestions zsh-syntax-highlighting
+    zsh-autosuggestions fast-syntax-highlighting
     z dircycle
     extract
     rsync
     vi-mode
-    themes nyan
+    themes
   )
 
   for plugin ($plugins); do
