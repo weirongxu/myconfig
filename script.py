@@ -79,9 +79,11 @@ def install_myscripts(self):
                 self.line('<info>install scripts to {0}</info>'.format(path))
 
     fish_script = textwrap.dedent("""
-    set -g MYSCRIPTS_HOME "{0}"
-    if test -s "$MYSCRIPTS_HOME/myshrc.fish"
+    if status is-interactive
+      set -g MYSCRIPTS_HOME "{0}"
+      if test -s "$MYSCRIPTS_HOME/myshrc.fish"
         . "$MYSCRIPTS_HOME/myshrc.fish"
+      end
     end
     """).format(myscripts_path)
 
