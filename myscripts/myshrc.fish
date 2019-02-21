@@ -24,7 +24,6 @@ if type -q "fenv"
   fenv export CHINA_PROXY=$CHINA_PROXY >/dev/null
   fenv export MYSCRIPTS_HOME=$MYSCRIPTS_HOME
   try-bash-source "$MYSCRIPTS_HOME/myshrc"
-  source-myscript "fish/git.fish"
 
   function myscripts
     fenv source "$MYSCRIPTS_HOME/common.sh" ";" \
@@ -54,12 +53,15 @@ else if type -q "bass"
 
   bass export CHINA_PROXY=$CHINA_PROXY >/dev/null
   bass export MYSCRIPTS_HOME=$MYSCRIPTS_HOME
-  try-bash-source "$MYSCRIPTS_HOME/myshrc"
-  source-myscript "fish/git.fish"
 
   function myscripts
     bass source "$MYSCRIPTS_HOME/common.sh" ";" \
       source "$MYSCRIPTS_HOME/myscripts.sh" ";" \
       myscripts $argv
   end
+end
+
+if type -q try-bash-source
+  try-bash-source "$MYSCRIPTS_HOME/myshrc"
+  source-myscript "fish/index.fish"
 end
