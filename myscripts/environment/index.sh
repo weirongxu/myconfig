@@ -2,6 +2,7 @@
 source-myscript 'environment/brew.sh'
 source-myscript 'environment/android.sh'
 source-myscript 'environment/java.sh'
+source-myscript 'environment/dart.sh'
 source-myscript 'environment/nodejs.sh'
 source-myscript 'environment/php.sh'
 source-myscript 'environment/python.sh'
