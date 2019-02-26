@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo 'test'
 . "$MYSCRIPTS_HOME/common.sh"
 
 source-myscript "commands/index.sh"
