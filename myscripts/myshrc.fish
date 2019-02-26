@@ -11,7 +11,7 @@ end
 if test -n "$BASH_RUNNER"
   function try-bash-source
     if test -s $argv[1]
-      $BASH_RUNNER source $argv[1]
+      $BASH_RUNNER "source $argv[1]"
     end
   end
 
