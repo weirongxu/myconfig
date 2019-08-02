@@ -11,4 +11,4 @@ else
     -v $record_path:/pgadmin:rw \
     thajeztah/pgadmin4
 fi
-echo 'pgadmin4 run at 127.0.0.1:5050'
+echo 'pgadmin4 run at http://127.0.0.1:5050'

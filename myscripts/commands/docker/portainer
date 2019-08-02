@@ -4,4 +4,4 @@ if exists-container 'portainer' ; then
 else
   docker run --name=portainer -d -p 127.0.0.1:9080:9000 -v "/var/run/docker.sock:/var/run/docker.sock" portainer/portainer
 fi
-echo 'portainer run at 127.0.0.1:9080'
+echo 'portainer run at http://127.0.0.1:9080'
