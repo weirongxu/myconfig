@@ -1,2 +1,2 @@
-exec 'set rtp+='.expand('~/.vim')
+exec 'set rtp^='.expand('~/.vim')
 source ~/.vim/vimrc
