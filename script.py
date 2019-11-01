@@ -35,6 +35,8 @@ sync_paths = [
     '.vimrc',
     '.config/nvim/init.vim',
 
+    '.config/starship.toml',
+
     '.spacemacs',
 ]
 

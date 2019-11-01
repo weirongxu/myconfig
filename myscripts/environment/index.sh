@@ -10,6 +10,7 @@ source-myscript 'environment/ruby.sh'
 source-myscript 'environment/vim.sh'
 source-myscript 'environment/golang.sh'
 source-myscript 'environment/rust.sh'
+source-myscript 'environment/starship.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
   source-myscript "environment/china.sh"
 fi
