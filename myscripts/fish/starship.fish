@@ -4,9 +4,9 @@ if type -q "starship"
   functions --copy fish_prompt fish_original_prompt
 
   function truncate_line
-    set max_length (echo $COLUMNS "- 5" | bc)
+    set max_length (math $COLUMNS - 5)
     while read -l line
-      set length (echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | wc -L)
+      set length (string replace -a -r "\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]" '' $line | string length)
       if [ $length -lt $max_length ]
         echo -e $line
       else
