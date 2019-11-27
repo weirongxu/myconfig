@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if exists-container 'ubuntu' ; then
+  docker start -i ubuntu
+else
+  docker run --name ubuntu -v /:/outside -it ubuntu:19.10 bash
+fi
