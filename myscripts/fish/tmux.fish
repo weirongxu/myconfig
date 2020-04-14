@@ -3,5 +3,5 @@ function __fish_tmux_sessions -d 'available sessions'
 end
 
 alias tmux="tmux -2"
-alias ta="tmux a -t"
+alias ta="tmux attach -t"
 complete -c ta -a '(__fish_tmux_sessions)' -d target-session
