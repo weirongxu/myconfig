@@ -11,7 +11,7 @@ ignores = [
 ]
 
 sync_paths = [
-    '.config/smplayer/smplayer.ini',
+    '.config/mpv/mpv.conf',
     '.config/variety/variety.conf',
     '.config/Zeal/Zeal.conf',
     '.config/fish/conf.d/my.fish',
