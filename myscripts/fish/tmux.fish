@@ -3,5 +3,11 @@ function __fish_tmux_sessions -d 'available sessions'
 end
 
 alias tmux="tmux -2"
-alias ta="tmux attach -t"
+function ta
+    if count $argv > /dev/null
+        tmux attach -t $argv
+    else
+        tmux attach
+    end
+end
 complete -c ta -a '(__fish_tmux_sessions)' -d target-session
