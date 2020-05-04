@@ -5,7 +5,6 @@
 	helper = store
 [core]
 	quotepath = false
-	editor = vim
 	excludesfile = ~/.gitignore
 	ignorecase = false
 [github]
