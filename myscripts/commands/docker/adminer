@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
+if exists-container 'adminer' ; then
+  docker start adminer
+else
+  docker run --name=adminer -d \
+    -p 9070:8080 \
+    adminer
+fi
 echo 'adminer run at http://127.0.0.1:9070'
-docker run --rm --name adminer --add-host host:172.17.0.1 -p 127.0.0.1:9070:80 -it clue/adminer
