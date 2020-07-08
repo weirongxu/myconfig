@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-source-myscript 'environment/brew.sh'
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+source-myscript 'environment/linux-brew.sh'
+source-myscript 'environment/macos-port.sh'
 source-myscript 'environment/android.sh'
 source-myscript 'environment/java.sh'
 source-myscript 'environment/dart.sh'
