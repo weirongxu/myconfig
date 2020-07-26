@@ -2,7 +2,7 @@
 echo > ~/.config/fish/fishfile "\
 jethrokuan/z
 jorgebucaran/fish-bax
-jorgebucaran/fish-nvm
+FabioAntunes/fish-nvm
 jorgebucaran/fish-git-util
 jorgebucaran/fish-gitio
 edc/bass
