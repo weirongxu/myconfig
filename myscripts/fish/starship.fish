@@ -13,7 +13,7 @@ if type -q "starship"
         set sep (string match -r '\\s(is|via)\\b' $line)[-1]
         if [ -n "$sep" ]
           set result (string replace -r '\\s(?:is|via)\\b' \n$sep $line)
-          echo $result[1]
+          echo $result[1] | truncate_line $max_length
           echo $result[-1] | truncate_line $max_length
         else
           echo $line | fmt -w $max_length
