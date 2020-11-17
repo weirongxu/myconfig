@@ -1,18 +1,15 @@
-# Install python dependencies
-```shell
-./install.sh
-```
+# Update configuration to \$HOME
 
-# update configuration to $HOME
 ```shell
 ./script.py update-to-home
 ```
 
-# from $HOME synchronize configuration
+# From \$HOME synchronize configuration
+
 ```shell
 ./script.py fetch-from-home
 ```
 
 # TODO
-* remove python dependencies
-* myscripts completion
+
+-   myscripts completion

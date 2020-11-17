@@ -1,136 +1,172 @@
 #!/usr/bin/env python3
-from cleo import Application, Command
-from pathlib import PurePath
-import textwrap
-import shutil
+
 import glob
 import os
+import shutil
+from enum import Enum
+from pathlib import PurePath
+import argparse
+import textwrap
+from typing import List
 
-ignores = [
-    '.DS_Store'
-]
 
-sync_paths = [
-    '.config/mpv/mpv.conf',
-    '.config/variety/variety.conf',
-    '.config/Zeal/Zeal.conf',
-    '.config/fish/conf.d/my.fish',
-    '_gdbinit',
-    '.ctags',
-    '.gitconfig',
-    '.gitignore',
-    '.editorconfig',
-    '.aria2/aria2.conf',
+class Config():
+    ignores = [
+        '.DS_Store'
+    ]
 
-    '.thefuck/settings.py',
-    '.thefuck/rules/**',
+    sync_paths = [
+        '.config/mpv/mpv.conf',
+        '.config/variety/variety.conf',
+        '.config/Zeal/Zeal.conf',
+        '.config/fish/conf.d/my.fish',
+        '_gdbinit',
+        '.ctags',
+        '.gitconfig',
+        '.gitignore',
+        '.editorconfig',
+        '.aria2/aria2.conf',
 
-    '.config/ibus/rime/wubi_pinyin.schema.yaml',
-    '.config/ibus/rime/pinyin_simp.schema.yaml',
+        '.thefuck/settings.py',
+        '.thefuck/rules/**',
 
-    'wallpaper/sync.sh',
-    'document/ref/get-php-en-ref.sh',
-    'document/ref/get-php-zh-ref.sh',
+        '.config/ibus/rime/wubi_pinyin.schema.yaml',
+        '.config/ibus/rime/pinyin_simp.schema.yaml',
 
-    '.vimrc',
-    '.config/nvim/init.vim',
+        'wallpaper/sync.sh',
+        'document/ref/get-php-en-ref.sh',
+        'document/ref/get-php-zh-ref.sh',
 
-    '.config/starship.toml',
+        '.vimrc',
+        '.config/nvim/init.vim',
 
-    '.spacemacs',
-]
+        '.config/starship.toml',
 
-china_sync_paths = [
-    '.npmrc',
-    '.atom/.apmrc',
-    '.composer/config.json',
-    '.pip/pip.conf',
-]
+        '.spacemacs',
+    ]
 
-user_home_dir = os.getenv('HOME')
+    china_sync_paths = [
+        '.npmrc',
+        '.composer/config.json',
+        '.pip/pip.conf',
+    ]
+
+
+config = Config()
+user_home_dir_ = os.getenv('HOME')
+if user_home_dir_ is None:
+    raise Exception('$HOME not found')
+user_home_dir = user_home_dir_
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
-def copy_by_glob(self, source_home, paths, target_home):
-    for path in paths:
-        for filepath in glob.glob(os.path.join(source_home, path), recursive=True):
-            if any([(ignore in filepath) for ignore in ignores]):
-                continue
-            relative_path = PurePath(filepath).relative_to(source_home)
-            target_path = os.path.join(target_home, str(relative_path))
-            if os.path.isfile(filepath):
-                os.makedirs(os.path.dirname(target_path), exist_ok=True)
-                shutil.copyfile(filepath, target_path, follow_symlinks=True)
-                self.line('<info>copy {0} => {1}</info>'.format(filepath, target_path))
 
-def install_myscripts(self):
-    myscripts_path = os.path.join(current_dir, 'myscripts')
+class Cli:
+    class Color(Enum):
+        INFO = '\033[34m'
+        ERROR = '\033[31m'
 
-    shell_script = textwrap.dedent("""
-    export MYSCRIPTS_HOME="{0}"
-    [[ -s "$MYSCRIPTS_HOME/myshrc" ]] && . "$MYSCRIPTS_HOME/myshrc"
-    """).format(myscripts_path)
+    @staticmethod
+    def print_color(line: str, color: Color):
+        print(color.value + line + '\\e[0m')
 
-    if self.option('china'):
-        shell_script = "\nCHINA_PROXY=1\n" + shell_script
+    def print_info(self, line: str):
+        self.print_color(line, Cli.Color.INFO)
 
-    for path in ['~/.bashrc', '~/.zshrc']:
-        with open(os.path.expanduser(path), 'a+') as f:
-            f.seek(0)
-            if shell_script not in f.read():
-                f.write(shell_script)
-                self.line('<info>install scripts to {0}</info>'.format(path))
+    def print_error(self, line: str):
+        self.print_color(line, Cli.Color.ERROR)
 
-    fish_script = textwrap.dedent("""
-    if status is-interactive
-      set -g MYSCRIPTS_HOME "{0}"
-      if test -s "$MYSCRIPTS_HOME/myshrc.fish"
-        . "$MYSCRIPTS_HOME/myshrc.fish"
-      end
-    end
-    """).format(myscripts_path)
+    def __init__(self) -> None:
+        self.args = self.parse()
+        if self.args.subcommand == 'update-to-home':
+            self.update_to_home()
+        elif self.args.subcommand == 'fetch-from-home':
+            self.fetch_from_home()
 
-    if self.option('china'):
-        shell_script = "\nset -g CHINA_PROXY 1\n" + fish_script
+    @staticmethod
+    def parse():
+        parser = argparse.ArgumentParser(
+            prog='myconfig script', description="myconfig")
+        parser.add_argument('--china',
+                            type=bool,
+                            default=False,
+                            help='include china proxy configuration')
+        subparsers = parser.add_subparsers(required=True, dest='subcommand')
+        subparsers.add_parser('update-to-home')
+        subparsers.add_parser('fetch-from-home')
+        return parser.parse_args()
 
-    fish_script_path = os.path.expanduser('~/.config/fish/conf.d/myscripts.fish')
-    with open(fish_script_path, 'w') as f:
-        f.write(fish_script)
-        self.line('<info>install scripts to {0}</info>'.format(fish_script_path))
+    @property
+    def is_china(self) -> bool:
+        return self.args.china == True
 
+    def install_myscripts(self):
+        myscripts_path = os.path.join(current_dir, 'myscripts')
 
+        shell_script = textwrap.dedent(f"""
+        export MYSCRIPTS_HOME="{myscripts_path}"
+        [[ -s "$MYSCRIPTS_HOME/myshrc" ]] && . "$MYSCRIPTS_HOME/myshrc"
+        """)
 
-class UpdateToHomeCommand(Command):
-    """
-    UpdateToHome Config
+        if self.is_china:
+            shell_script = "\nCHINA_PROXY=1\n" + shell_script
 
-    update-to-home
-    {--c|china : include china proxy configuration}
-    """
+        for path in ['~/.bashrc', '~/.zshrc']:
+            with open(os.path.expanduser(path), 'a+') as f:
+                f.seek(0)
+                if shell_script not in f.read():
+                    f.write(shell_script)
+                    self.print_info(f'Install scripts to {path}')
 
-    def handle(self):
-        copy_by_glob(self, os.path.join(current_dir, 'home'), sync_paths, user_home_dir)
-        if self.option('china'):
-            copy_by_glob(self, os.path.join(current_dir, 'home_china'), china_sync_paths, user_home_dir)
-        install_myscripts(self)
-        self.line('<info>update done</info>')
+        fish_script = textwrap.dedent(f"""
+        if status is-interactive
+        set -g MYSCRIPTS_HOME "{myscripts_path}"
+        if test -s "$MYSCRIPTS_HOME/myshrc.fish"
+            . "$MYSCRIPTS_HOME/myshrc.fish"
+        end
+        end
+        """)
 
-class FetchFromHomeCommand(Command):
-    """
-    FetchFromHome Config
+        if self.is_china:
+            shell_script = "\nset -g CHINA_PROXY 1\n" + fish_script
 
-    fetch-from-home
-    {--c|china : include china proxy configuration}
-    """
+        fish_script_path = os.path.expanduser(
+            '~/.config/fish/conf.d/myscripts.fish')
+        with open(fish_script_path, 'w') as f:
+            f.write(fish_script)
+            self.print_info(
+                f'Install scripts to {fish_script_path}')
 
-    def handle(self):
-        copy_by_glob(self, user_home_dir, sync_paths, os.path.join(current_dir, 'home'))
-        if self.option('china'):
-            copy_by_glob(self, user_home_dir, china_sync_paths, os.path.join(current_dir, 'home_china'))
-        self.line('<info>push done</info>')
+    def copy_by_glob(self, source_home: str, paths: List[str], target_home: str):
+        for path in paths:
+            for filepath in glob.glob(os.path.join(source_home, path), recursive=True):
+                if any([(ignore in filepath) for ignore in config.ignores]):
+                    continue
+                relative_path = PurePath(filepath).relative_to(source_home)
+                target_path = os.path.join(target_home, str(relative_path))
+                if os.path.isfile(filepath):
+                    os.makedirs(os.path.dirname(
+                        target_path), exist_ok=True)
+                    shutil.copyfile(filepath, target_path,
+                                    follow_symlinks=True)
+                    self.print_info(f'COPY: {filepath} => {target_path}')
 
-application = Application()
-application.add(FetchFromHomeCommand())
-application.add(UpdateToHomeCommand())
+    def update_to_home(self):
+        self.copy_by_glob(os.path.join(current_dir, 'home'),
+                          config.sync_paths, user_home_dir)
+        if self.is_china:
+            self.copy_by_glob(os.path.join(
+                current_dir, 'home_china'), config.china_sync_paths, user_home_dir)
+        self.install_myscripts()
+        self.print_info('Update done')
+
+    def fetch_from_home(self):
+        self.copy_by_glob(user_home_dir, config.sync_paths,
+                          os.path.join(current_dir, 'home'))
+        if self.is_china:
+            self.copy_by_glob(user_home_dir, config.china_sync_paths,
+                              os.path.join(current_dir, 'home_china'))
+        self.print_info('Push done')
+
 
 if __name__ == '__main__':
-    application.run()
+    Cli()
