@@ -17,7 +17,6 @@ class Config():
 
     sync_paths = [
         '.config/mpv/mpv.conf',
-        '.config/variety/variety.conf',
         '.config/Zeal/Zeal.conf',
         '.config/fish/conf.d/my.fish',
         '_gdbinit',
@@ -27,13 +26,9 @@ class Config():
         '.editorconfig',
         '.aria2/aria2.conf',
 
-        '.thefuck/settings.py',
-        '.thefuck/rules/**',
-
         '.config/ibus/rime/wubi_pinyin.schema.yaml',
         '.config/ibus/rime/pinyin_simp.schema.yaml',
 
-        'wallpaper/sync.sh',
         'document/ref/get-php-en-ref.sh',
         'document/ref/get-php-zh-ref.sh',
 
@@ -67,7 +62,7 @@ class Cli:
 
     @staticmethod
     def print_color(line: str, color: Color):
-        print(color.value + line + '\\e[0m')
+        print(color.value + line + '\033[0m')
 
     def print_info(self, line: str):
         self.print_color(line, Cli.Color.INFO)
