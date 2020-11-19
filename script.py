@@ -7,7 +7,7 @@ from enum import Enum
 from pathlib import PurePath
 import argparse
 import textwrap
-from typing import List
+from typing import List, Literal
 
 
 class Config():
@@ -57,18 +57,12 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 
 class Cli:
     class Color(Enum):
-        INFO = '\033[34m'
-        ERROR = '\033[31m'
+        info = '\033[34m'
+        error = '\033[31m'
 
     @staticmethod
-    def print_color(line: str, color: Color):
-        print(color.value + line + '\033[0m')
-
-    def print_info(self, line: str):
-        self.print_color(line, Cli.Color.INFO)
-
-    def print_error(self, line: str):
-        self.print_color(line, Cli.Color.ERROR)
+    def output(line: str, type: Literal['info', 'error'] = 'info'):
+        print(getattr(Cli.Color, type).value + line + '\033[0m')
 
     def __init__(self) -> None:
         self.args = self.parse()
@@ -110,7 +104,7 @@ class Cli:
                 f.seek(0)
                 if shell_script not in f.read():
                     f.write(shell_script)
-                    self.print_info(f'Install scripts to {path}')
+                    self.output(f'Install scripts to {path}', 'info')
 
         fish_script = textwrap.dedent(f"""
         if status is-interactive
@@ -128,8 +122,8 @@ class Cli:
             '~/.config/fish/conf.d/myscripts.fish')
         with open(fish_script_path, 'w') as f:
             f.write(fish_script)
-            self.print_info(
-                f'Install scripts to {fish_script_path}')
+            self.output(
+                f'Install scripts to {fish_script_path}', 'info')
 
     def copy_by_glob(self, source_home: str, paths: List[str], target_home: str):
         for path in paths:
@@ -143,7 +137,7 @@ class Cli:
                         target_path), exist_ok=True)
                     shutil.copyfile(filepath, target_path,
                                     follow_symlinks=True)
-                    self.print_info(f'COPY: {filepath} => {target_path}')
+                    self.output(f'COPY: {filepath} => {target_path}', 'info')
 
     def update_to_home(self):
         self.copy_by_glob(os.path.join(current_dir, 'home'),
@@ -152,7 +146,7 @@ class Cli:
             self.copy_by_glob(os.path.join(
                 current_dir, 'home_china'), config.china_sync_paths, user_home_dir)
         self.install_myscripts()
-        self.print_info('Update done')
+        self.output('Update done', 'info')
 
     def fetch_from_home(self):
         self.copy_by_glob(user_home_dir, config.sync_paths,
@@ -160,7 +154,7 @@ class Cli:
         if self.is_china:
             self.copy_by_glob(user_home_dir, config.china_sync_paths,
                               os.path.join(current_dir, 'home_china'))
-        self.print_info('Push done')
+        self.output('Push done', 'info')
 
 
 if __name__ == '__main__':
