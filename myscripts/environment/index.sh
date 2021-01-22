@@ -25,3 +25,6 @@ if is-zsh; then
 else
   try-source /usr/share/skim/key-bindings.bash
 fi
+if [[ -z $XDG_CACHE_HOME ]]; then
+  export XDG_CACHE_HOME="$HOME/.cache"
+fi

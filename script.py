@@ -37,6 +37,8 @@ class Config():
 
         '.config/starship.toml',
 
+        '.tmux.conf.local',
+
         '.spacemacs',
     ]
 
