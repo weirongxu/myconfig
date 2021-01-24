@@ -4,6 +4,7 @@ autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
 zstyle ':completion:*' menu yes select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
