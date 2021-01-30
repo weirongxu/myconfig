@@ -14,8 +14,6 @@ setopt appendhistory
 setopt auto_cd
 setopt multios
 
-try-source /etc/zsh_command_not_found
-
 if exists-cmd zinit; then
   zinit light zdharma/fast-syntax-highlighting
   zinit light zsh-users/zsh-autosuggestions
