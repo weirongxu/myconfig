@@ -26,7 +26,7 @@ if test -n "$BASH_RUNNER"
   end
 
   function source-myscript
-    try-source "$MYSCRIPTS_HOME/$argv[1]"
+    source "$MYSCRIPTS_HOME/$argv[1]"
   end
 
   $BASH_RUNNER "export CHINA_PROXY=$CHINA_PROXY >/dev/null"

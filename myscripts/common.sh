@@ -67,5 +67,5 @@ try-source() {
 }
 
 source-myscript() {
-  try-source "$MYSCRIPTS_HOME/$1"
+  source "$MYSCRIPTS_HOME/$1"
 }
