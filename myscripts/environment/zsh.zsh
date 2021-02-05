@@ -40,7 +40,6 @@ if exists-cmd zinit; then
   # zinit ice as"completion"
   # zinit snippet OMZ::plugins/cargo/_cargo
 
-  KEYTIMEOUT=1
   # zinit load softmoth/zsh-vim-mode
   zinit load jeffreytse/zsh-vi-mode
   ZVM_VI_SURROUND_BINDKEY=s-prefix
