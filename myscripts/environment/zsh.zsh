@@ -9,6 +9,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 setopt appendhistory
 setopt auto_cd
