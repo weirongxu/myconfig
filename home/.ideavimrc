@@ -1,7 +1,24 @@
-map <space>ff <Action>(ReformatCode)
-map <space>s <Action>(SaveDocument)
-map gr <Action>(FindUsages)
-map gr <Action>(GotoTypeDeclaration)
-map <space>fg <Action>(FindInPath)
-map <C-S-P> <Action>(SearchEveryWhere)
-map <C-P> <Action>(GotoFile)
+" movement
+nmap <S-h> gT
+nmap <S-l> gt
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-w>q :q<cr>
+
+" search
+nmap <C-S-P> <Action>(SearchEveryWhere)
+nmap <C-P> <Action>(GotoFile)
+nmap <space>fg <Action>(FindInPath)
+
+" format, saving
+nmap <space>ff <Action>(ReformatCode)
+nmap <space>s <Action>(SaveDocument)
+
+" refactoring
+nmap <space>rn <action>(RenameElement)
+nmap gr <Action>(FindUsages)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap [c <Action>VcsShowPrevChangeMarker
+nmap ]c <Action>VcsShowNextChangeMarker
