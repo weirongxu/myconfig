@@ -1,0 +1,7 @@
+map <space>ff <Action>(ReformatCode)
+map <space>s <Action>(SaveDocument)
+map gr <Action>(FindUsages)
+map gr <Action>(GotoTypeDeclaration)
+map <space>fg <Action>(FindInPath)
+map <C-S-P> <Action>(SearchEveryWhere)
+map <C-P> <Action>(GotoFile)

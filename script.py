@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 
+import argparse
 import glob
+import importlib
 import os
+import platform
+import pprint
 import shutil
+import subprocess
+import textwrap
 from enum import Enum
 from pathlib import PurePath
-import argparse
-import textwrap
 from typing import List, Literal
+
+pp = pprint.PrettyPrinter(indent=2)
 
 
 class Config():
@@ -40,6 +46,7 @@ class Config():
         '.tmux.conf.local',
 
         '.spacemacs',
+        '.ideavimrc',
     ]
 
     china_sync_paths = [
@@ -48,6 +55,10 @@ class Config():
         '.pip/pip.conf',
     ]
 
+def getPowerShellProfile():
+    completed = subprocess.run(['powershell', '-Command', 'echo $PROFILE'], capture_output=True)
+    return completed.stdout.decode().strip()
+
 
 config = Config()
 user_home_dir_ = os.getenv('HOME')
@@ -55,6 +66,13 @@ if user_home_dir_ is None:
     raise Exception('$HOME not found')
 user_home_dir = user_home_dir_
 current_dir = os.path.dirname(os.path.realpath(__file__))
+if platform.system() == 'Windows':
+    profile_path = getPowerShellProfile()
+    if profile_path is not None:
+        profile_rel_path = os.path.relpath(profile_path, user_home_dir)
+        config.sync_paths.append(profile_rel_path)
+    else:
+        raise Exception('$PROFILE not found')
 
 
 class Cli:
