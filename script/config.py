@@ -62,7 +62,7 @@ class ConfigPath():
 
     def user(self, user_path: str):
         c = self.clone()
-        c._user_path = user_path
+        c._user_path = os.path.normpath(user_path)
         return c
 
     @property

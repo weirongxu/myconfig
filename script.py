@@ -37,7 +37,7 @@ sync_paths: List[OriginConfigPath] = [
 
 if env.isWin:
     sync_paths.append(mpv.user(os.path.join(
-        unwrap(os.getenv('APPDATA')), 'mpv.conf')))
+        unwrap(os.getenv('APPDATA')), 'mpv/mpv.conf')))
 else:
     sync_paths.append(mpv)
 
