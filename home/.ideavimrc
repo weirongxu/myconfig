@@ -9,10 +9,9 @@ nmap <C-w>q :q<cr>
 
 " idea
 command Restart action InvalidateCaches
-nmap <space>er <Action>(SelectIn)
 
 " explorer
-nmap <space>er <Action>(SelectIn)
+nmap <space>er <Action>(SelectInProjectView)
 
 " search
 nmap <C-S-P> <Action>(SearchEverywhere)
