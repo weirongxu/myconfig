@@ -6,6 +6,8 @@ nmap <C-l> <C-w>l
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-w>q :q<cr>
+imap <C-e> <C-o>A
+imap <C-a> <C-o>I
 
 " idea
 command Restart action InvalidateCaches
@@ -26,5 +28,7 @@ nmap <space>s <Action>(SaveDocument)
 nmap <space>rn <action>(RenameElement)
 nmap gr <Action>(FindUsages)
 nmap gy <Action>(GotoTypeDeclaration)
-nmap [c <Action>VcsShowPrevChangeMarker
-nmap ]c <Action>VcsShowNextChangeMarker
+nmap [c <Action>(VcsShowPrevChangeMarker)
+nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
