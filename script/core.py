@@ -38,11 +38,11 @@ class Env():
         return completed.stdout.decode().strip()
 
     @property
-    def local_home(self) -> str:
+    def store_home(self) -> str:
         return os.path.normpath(os.path.join(self.cwd, 'home'))
 
     @property
-    def local_home_china(self) -> str:
+    def store_home_china(self) -> str:
         return os.path.normpath(os.path.join(self.cwd, 'home_china'))
 
 

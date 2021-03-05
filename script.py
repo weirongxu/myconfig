@@ -25,7 +25,6 @@ sync_paths: List[OriginConfigPath] = [
     'document/ref/get-php-en-ref.sh',
     'document/ref/get-php-zh-ref.sh',
 
-    '.vimrc',
     '.config/nvim/init.vim',
 
     '.config/starship.toml',
@@ -36,8 +35,13 @@ sync_paths: List[OriginConfigPath] = [
 ]
 
 if env.isWin:
-    sync_paths.append(mpv.user(os.path.join(
+    sync_paths.append(mpv.user_home(os.path.join(
         unwrap(os.getenv('APPDATA')), 'mpv/mpv.conf')))
+
+    sync_paths.append(
+        ConfigPath(
+            os.path.join(unwrap(os.getenv('LOCALAPPDATA')),
+                         'Microsoft/PowerToys')).glob('**/*.json'))
 else:
     sync_paths.append(mpv)
 

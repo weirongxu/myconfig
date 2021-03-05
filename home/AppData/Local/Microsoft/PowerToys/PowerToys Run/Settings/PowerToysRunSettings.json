@@ -1,0 +1,93 @@
+{
+  "PreviousHotkey": "",
+  "Hotkey": "Alt + Space",
+  "Language": "en",
+  "Theme": 0,
+  "QueryBoxFont": "Microsoft Sans Serif",
+  "QueryBoxFontStyle": null,
+  "QueryBoxFontWeight": null,
+  "QueryBoxFontStretch": null,
+  "ResultFont": "Microsoft Sans Serif",
+  "ResultFontStyle": null,
+  "ResultFontWeight": null,
+  "ResultFontStretch": null,
+  "AutoUpdates": false,
+  "WindowLeft": 192.0,
+  "WindowTop": 188.8,
+  "MaxResultsToShow": 4,
+  "ActivateTimes": 2,
+  "CustomPluginHotkeys": [],
+  "DontPromptUpdateMsg": false,
+  "EnableUpdateLog": false,
+  "StartWoxOnSystemStartup": true,
+  "HideOnStartup": false,
+  "HideNotifyIcon": false,
+  "LeaveCmdOpen": false,
+  "HideWhenDeactivated": true,
+  "ClearInputOnLaunch": false,
+  "RememberLastLaunchLocation": false,
+  "IgnoreHotkeysOnFullscreen": false,
+  "UsePowerToysRunnerKeyboardHook": true,
+  "Proxy": {
+    "Enabled": false,
+    "Server": null,
+    "Port": 0,
+    "UserName": null,
+    "Password": null
+  },
+  "LastQueryMode": "Selected",
+  "PluginSettings": {
+    "Plugins": {
+      "CEA0FDFC6D3B4085823D60DC76F28855": {
+        "ID": "CEA0FDFC6D3B4085823D60DC76F28855",
+        "Name": "Calculator",
+        "Disabled": false
+      },
+      "B4D3B69656E14D44865C8D818EAE47C4": {
+        "ID": "B4D3B69656E14D44865C8D818EAE47C4",
+        "Name": "Folder",
+        "Disabled": false
+      },
+      "2140FC9819AD43A3A616E2735815C27C": {
+        "ID": "2140FC9819AD43A3A616E2735815C27C",
+        "Name": "Windows Indexer",
+        "Disabled": false
+      },
+      "791FC278BA414111B8D1886DFE447410": {
+        "ID": "791FC278BA414111B8D1886DFE447410",
+        "Name": "Program",
+        "Disabled": false
+      },
+      "D409510CD0D2481F853690A07E6DC426": {
+        "ID": "D409510CD0D2481F853690A07E6DC426",
+        "Name": "Shell",
+        "Disabled": false
+      },
+      "03276A39D4E9417C8FFD200B0EE5E871": {
+        "ID": "03276A39D4E9417C8FFD200B0EE5E871",
+        "Name": "Windows Uri Handler",
+        "Disabled": false
+      },
+      "F737A9223560B3C6833B5FFB8CDF78E5": {
+        "ID": "F737A9223560B3C6833B5FFB8CDF78E5",
+        "Name": "Window Walker",
+        "Disabled": false
+      },
+      "303417D927BF4C97BCFFC78A123BE0C8": {
+        "ID": "303417D927BF4C97BCFFC78A123BE0C8",
+        "Name": "Registry",
+        "Disabled": false
+      },
+      "11A6C36E4E91439CA69F702CBD364EF7": {
+        "ID": "11A6C36E4E91439CA69F702CBD364EF7",
+        "Name": "Service",
+        "Disabled": false
+      },
+      "CEA08895D2544B019B2E9C5009600DF4": {
+        "ID": "CEA08895D2544B019B2E9C5009600DF4",
+        "Name": "System Commands",
+        "Disabled": false
+      }
+    }
+  }
+}

@@ -3,12 +3,16 @@ from enum import Enum
 import glob
 import os
 from pathlib import PurePath
+from pprint import pp
 import shutil
 import textwrap
-from typing import List, Literal
+from typing import Dict, List, Literal, Optional, Tuple, TypedDict, Union
 
 from script.config import Config, ConfigPath
 from script.core import env
+
+Position = Literal['user_home', 'store', 'store_china']
+Transfer = Tuple[Position, Position]
 
 
 class Cli:
@@ -57,6 +61,7 @@ class Cli:
             shell_script = "\nCHINA_PROXY=1\n" + shell_script
 
         for path in ['~/.bashrc', '~/.zshrc']:
+            path = os.path.normpath(path)
             with open(os.path.expanduser(path), 'a+') as f:
                 f.seek(0)
                 if shell_script not in f.read():
@@ -75,8 +80,8 @@ class Cli:
         if self.is_china:
             shell_script = "\nset -g CHINA_PROXY 1\n" + fish_script
 
-        fish_script_path = os.path.expanduser(
-            '~/.config/fish/conf.d/myscripts.fish')
+        fish_script_path = os.path.normpath(os.path.expanduser(
+            '~/.config/fish/conf.d/myscripts.fish'))
         with open(fish_script_path, 'w') as f:
             f.write(fish_script)
             self.output(
@@ -85,50 +90,90 @@ class Cli:
     def ignored(self, filepath: str):
         return any([(ignore in filepath) for ignore in self.config.ignores])
 
-    def copy_to(self, source: str, target: str):
-        if os.path.isfile(source):
-            os.makedirs(os.path.dirname(
-                target), exist_ok=True)
-            shutil.copyfile(source, target,
-                            follow_symlinks=True)
-            self.output(
-                f'COPY: {source} => {target}', 'info')
+    def simplify_path(self, position: Position, path: str):
+        if position == 'user_home':
+            return f'~{os.path.sep}{os.path.relpath(path, env.user_home)}'
+        elif position == 'store' or position == 'store_china':
+            return f'.{os.path.sep}{os.path.relpath(path, env.cwd)}'
         else:
-            self.output(f'{source} not found', 'error')
+            raise TypeError(f"{position} not support")
 
-    def glob_copy_to(self, paths: List[ConfigPath], target: Literal['user', 'local'], is_china: bool = False):
+    def path_by_position(self, position: Position, path: ConfigPath):
+        if position == 'user_home':
+            return path.user_home_path
+        elif position == 'store':
+            return path.store_path
+        elif position == 'store_china':
+            return path.store_china_path
+        else:
+            raise TypeError(f"{position} not support")
+
+    def copy_to(
+        self,
+        transfer: Transfer,
+        source_path: str,
+        target_path: str,
+    ):
+        if os.path.isfile(source_path):
+            os.makedirs(os.path.dirname(
+                target_path), exist_ok=True)
+            shutil.copyfile(source_path, target_path,
+                            follow_symlinks=True)
+        else:
+            self.output(f'{source_path} not found', 'error')
+
+    def print_copy_to(self, transfer: Transfer, source_path: str, target_path: str):
+        self.output(
+            f'''  {
+                self.simplify_path(transfer[0], source_path)
+            } => {
+                self.simplify_path(transfer[1], target_path)
+            }''', 'info')
+
+    def glob_copy_to(self, paths: List[ConfigPath], transfer: Transfer):
+        self.output(f'Copy: ({transfer[0]} -> {transfer[1]}):', 'info')
         for path in paths:
             if not path.matched_platform():
                 continue
-            local_path = path.local_path_china if is_china else path.local_path
-            source_path = path.user_path if target == 'local' else local_path
-            target_path = local_path if target == 'local' else path.user_path
+            source_pos = transfer[0]
+            target_pos = transfer[1]
+            source_path = self.path_by_position(source_pos, path)
+            target_path = self.path_by_position(target_pos, path)
 
             if path.glob_path is None:
                 if self.ignored(source_path):
                     continue
-                self.copy_to(source_path, target_path)
+                self.copy_to(transfer, source_path, target_path)
+                self.print_copy_to(transfer, source_path, target_path)
             else:
+                self.print_copy_to(transfer, source_path, target_path)
                 for filepath in glob.glob(os.path.join(
                         source_path, path.glob_path),
                         recursive=True):
                     if self.ignored(filepath):
                         continue
-                    relative_path = os.path.relpath(filepath, source_path)
-                    target_filepath = os.path.join(target_path, relative_path)
-                    self.copy_to(filepath, target_filepath)
+                    rel_target_path = os.path.relpath(filepath, source_path)
+                    target_filepath = os.path.join(
+                        target_path, rel_target_path)
+                    self.copy_to(
+                        transfer,
+                        filepath,
+                        target_filepath,
+                    )
+                    self.output(
+                        f'    {rel_target_path} => ...', 'info')
 
     def update_to_home(self):
-        self.glob_copy_to(self.config.sync_paths, target='user')
+        self.glob_copy_to(self.config.sync_paths, ('store', 'user_home'))
         if self.is_china:
             self.glob_copy_to(self.config.china_sync_paths,
-                              target='user', is_china=True)
+                              ('store_china', 'user_home'))
         self.install_myscripts()
         self.output('Update done', 'info')
 
     def fetch_from_home(self):
-        self.glob_copy_to(self.config.sync_paths, target='local')
+        self.glob_copy_to(self.config.sync_paths, ('user_home', 'store'))
         if self.is_china:
             self.glob_copy_to(self.config.china_sync_paths,
-                              target='local', is_china=True)
+                              ('user_home', 'store_china'))
         self.output('Push done', 'info')
