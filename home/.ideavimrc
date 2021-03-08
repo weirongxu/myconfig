@@ -14,6 +14,7 @@ command Restart action InvalidateCaches
 
 " explorer
 nmap <space>er <Action>(SelectInProjectView)
+nmap <space>ee <Action>(ActivateProjectToolWindow)
 
 " search
 nmap <C-S-P> <Action>(SearchEverywhere)
@@ -22,13 +23,24 @@ nmap <space>fg <Action>(FindInPath)
 
 " format, saving
 nmap <space>ff <Action>(ReformatCode)
+nmap <space>fi <Action>(OptimizeImports)
 nmap <space>s <Action>(SaveDocument)
 
-" refactoring
-nmap <space>rn <action>(RenameElement)
+" Actions
+nmap <space><cr> <Action>(ShowIntentionActions)
+
+" completion
+imap <c-l> <Action>(CodeCompletion)
+
+" references
 nmap gr <Action>(FindUsages)
 nmap gy <Action>(GotoTypeDeclaration)
+
+" jumping
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)
 nmap [d <Action>(GotoPreviousError)
 nmap ]d <Action>(GotoNextError)
+
+" refactoring
+nmap <space>rn <action>(RenameElement)

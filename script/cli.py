@@ -169,11 +169,11 @@ class Cli:
             self.glob_copy_to(self.config.china_sync_paths,
                               ('store_china', 'user_home'))
         self.install_myscripts()
-        self.output('Update done', 'info')
+        self.output('Done: update-to-home', 'info')
 
     def fetch_from_home(self):
         self.glob_copy_to(self.config.sync_paths, ('user_home', 'store'))
         if self.is_china:
             self.glob_copy_to(self.config.china_sync_paths,
                               ('user_home', 'store_china'))
-        self.output('Push done', 'info')
+        self.output('Done: fetch-from-home', 'info')
