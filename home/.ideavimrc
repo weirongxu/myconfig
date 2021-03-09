@@ -13,8 +13,32 @@ imap <C-a> <C-o>I
 command Restart action InvalidateCaches
 
 " explorer
-nmap <space>er <Action>(SelectInProjectView)
-nmap <space>ee <Action>(ActivateProjectToolWindow)
+set NERDTree
+nmap <space>er :NERDTreeFind<CR>
+nmap <space>ee :NERDTreeToggle<CR>
+
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapPreview = 'E'
+let g:NERDTreeMapOpenInTab = 't'
+let g:NERDTreeMapOpenInTabSilent = 'T'
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapPreviewSplit = 'S'
+let g:NERDTreeMapOpenVSplit = 'v'
+let g:NERDTreeMapPreviewVSplit = 'V'
+let g:NERDTreeMapOpenRecursively = 'L'
+let g:NERDTreeMapCloseDir = 'h'
+let g:NERDTreeMapCloseChildren = 'H'
+let g:NERDTreeMapJumpRoot = 'gf'
+let g:NERDTreeMapJumpParent = 'gh'
+let g:NERDTreeMapJumpFirstChild = 'K'
+let g:NERDTreeMapJumpLastChild = 'J'
+let g:NERDTreeMapJumpNextSibling = 'j'
+let g:NERDTreeMapJumpPrevSibling = 'k'
+let g:NERDTreeMapRefresh = 'R'
+let g:NERDTreeMapRefreshRoot = 'gR'
+let g:NERDTreeMapMenu = '\t'
+let g:NERDTreeMapQuit = 'q'
+let g:NERDTreeMapToggleZoom = '<SP>m'
 
 " search
 nmap <C-S-P> <Action>(SearchEverywhere)
