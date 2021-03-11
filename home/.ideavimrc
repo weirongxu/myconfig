@@ -1,3 +1,6 @@
+" options
+set clipboard
+
 " movement
 nmap <S-h> gT
 nmap <S-l> gt
@@ -15,7 +18,7 @@ command Restart action InvalidateCaches
 " explorer
 set NERDTree
 nmap <space>er :NERDTreeFind<CR>
-nmap <space>ee :NERDTreeToggle<CR>
+nmap <space>ee :NERDTree<CR>
 
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapPreview = 'E'
@@ -36,14 +39,22 @@ let g:NERDTreeMapJumpNextSibling = 'j'
 let g:NERDTreeMapJumpPrevSibling = 'k'
 let g:NERDTreeMapRefresh = 'R'
 let g:NERDTreeMapRefreshRoot = 'gR'
-let g:NERDTreeMapMenu = '\t'
+let g:NERDTreeMapMenu = '<Tab>'
 let g:NERDTreeMapQuit = 'q'
 let g:NERDTreeMapToggleZoom = '<SP>m'
+
+" tab
+nmap <S-Left> <Action>(com.mnw.tabmover.actions.MoveTabUpAction)
+nmap <S-Right> <Action>(com.mnw.tabmover.actions.MoveTabDownAction)
 
 " search
 nmap <C-S-P> <Action>(SearchEverywhere)
 nmap <C-P> <Action>(GotoFile)
 nmap <space>fg <Action>(FindInPath)
+
+" edit
+nmap gh <Action>(MoveElementLeft)
+nmap gl <Action>(MoveElementRight)
 
 " format, saving
 nmap <space>ff <Action>(ReformatCode)
@@ -51,7 +62,7 @@ nmap <space>fi <Action>(OptimizeImports)
 nmap <space>s <Action>(SaveDocument)
 
 " Actions
-nmap <space><cr> <Action>(ShowIntentionActions)
+map <space><cr> <Action>(ShowIntentionActions)
 
 " completion
 imap <c-l> <Action>(CodeCompletion)
