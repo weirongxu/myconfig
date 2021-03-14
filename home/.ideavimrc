@@ -1,5 +1,5 @@
 " options
-set clipboard
+set clipboard+=unnamed
 
 " movement
 nmap <S-h> gT
