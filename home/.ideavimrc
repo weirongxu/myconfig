@@ -70,6 +70,7 @@ imap <c-l> <Action>(CodeCompletion)
 " references
 nmap gr <Action>(FindUsages)
 nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
 
 " jumping
 nmap [c <Action>(VcsShowPrevChangeMarker)
