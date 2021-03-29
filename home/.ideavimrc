@@ -1,17 +1,6 @@
 " options
 set clipboard+=unnamed
 
-" movement
-nmap <S-h> gT
-nmap <S-l> gt
-nmap <C-h> <C-w>h
-nmap <C-l> <C-w>l
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-w>q :q<cr>
-imap <C-e> <C-o>A
-imap <C-a> <C-o>I
-
 " idea
 command Restart action InvalidateCaches
 
@@ -43,7 +32,18 @@ let g:NERDTreeMapMenu = '<Tab>'
 let g:NERDTreeMapQuit = 'q'
 let g:NERDTreeMapToggleZoom = '<SP>m'
 
+" buffer, window
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-w>q :q<cr>
+imap <C-e> <C-o>A
+imap <C-a> <C-o>I
+
 " tab
+nmap <S-h> gT
+nmap <S-l> gt
 nmap <S-Left> <Action>(com.mnw.tabmover.actions.MoveTabUpAction)
 nmap <S-Right> <Action>(com.mnw.tabmover.actions.MoveTabDownAction)
 
