@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+filepath="$1"
+filename="$(basename "$1")"
+printf "\e]1337;File=name=$(echo -n $filename | base64 -w 0);size=1000000;:$(cat $filepath | base64 -w 0)\a"

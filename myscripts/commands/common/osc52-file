@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+filepath="$1"
+printf "\e]52;c;$(cat $filepath | base64 -w 0)\a"
