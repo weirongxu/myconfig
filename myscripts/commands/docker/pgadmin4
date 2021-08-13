@@ -2,13 +2,21 @@
 if exists-container 'pgadmin4' ; then
   docker start pgadmin4
 else
+  read -p "Input email: " email
+  echo ""
+  read -s -p "Input password: " pass
+  echo ""
+  echo ""
   record_path=$HOME/.record/pgadmin4
   mkdir $record_path
-  sudo chmod o=rwX $record_path
-  sudo chown $USER $record_path
+  sudo chmod o=rwX -R $record_path
+  sudo chown $USER -R $record_path
   docker run --name=pgadmin4 -d \
-    -p 127.0.0.1:5050:5050 \
-    -v $record_path:/pgadmin:rw \
-    thajeztah/pgadmin4
+    --network host \
+    -v $record_path:/var/lib/pgadmin:rw \
+    -e "PGADMIN_LISTEN_PORT=5050" \
+    -e "PGADMIN_DEFAULT_EMAIL=${email}" \
+    -e "PGADMIN_DEFAULT_PASSWORD=${pass}" \
+    dpage/pgadmin4
 fi
 echo 'pgadmin4 run at http://127.0.0.1:5050'
