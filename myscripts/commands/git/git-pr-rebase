@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+branch_target=$(git branch --show-current)
+git pr $1
+branch_from=$(git branch --show-current)
+git checkout $branch_target
+git rebase $branch_from
