@@ -9,6 +9,7 @@ alias tn="tmux new -s"
 
 if exists-cmd 'exa'; then
   alias ls=exa
+  alias la="exa -laa"
 fi
 
 if exists-cmd 'bat'; then

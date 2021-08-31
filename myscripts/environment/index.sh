@@ -17,7 +17,7 @@ source-myscript 'environment/golang.sh'
 source-myscript 'environment/rust.sh'
 source-myscript 'environment/starship.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
-  source-myscript "environment/china.sh"
+  source-myscript 'environment/china.sh'
 fi
 if is-zsh; then
   source-myscript 'environment/zsh.zsh'
