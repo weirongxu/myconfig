@@ -11,8 +11,46 @@
     "changecursor": {
       "value": false
     },
-    "copiedcolorrepresentation": 0
+    "copiedcolorrepresentation": 0,
+    "activationaction": 1,
+    "colorhistory": [
+      "255|28|28|28",
+      "255|255|213|150",
+      "255|143|146|161",
+      "255|122|124|136",
+      "255|131|134|147",
+      "255|255|58|58",
+      "255|78|77|77",
+      "255|90|90|90",
+      "255|164|164|164",
+      "255|140|212|106",
+      "255|124|195|226",
+      "255|122|195|226",
+      "255|255|154|4",
+      "255|214|160|77",
+      "255|95|95|95",
+      "255|30|30|30",
+      "255|255|153|0",
+      "255|45|45|45",
+      "255|45|45|45",
+      "255|103|102|108"
+    ],
+    "colorhistorylimit": 20,
+    "visiblecolorformats": {
+      "HEX": true,
+      "RGB": true,
+      "HSL": true,
+      "HSV": false,
+      "CMYK": false,
+      "HSB": false,
+      "HSI": false,
+      "HWB": false,
+      "NCol": false
+    },
+    "showcolorname": {
+      "value": false
+    }
   },
   "name": "ColorPicker",
-  "version": "1"
+  "version": "1.0"
 }

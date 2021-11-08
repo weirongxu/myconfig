@@ -1,8 +1,10 @@
 " options
 set clipboard+=unnamed
+set surround
 
 " idea
-command Restart action InvalidateCaches
+command Restart action RestartIde
+command ReloadVim action IdeaVim.ReloadVimRc.reload
 
 " explorer
 set NERDTree
@@ -44,39 +46,48 @@ imap <C-a> <C-o>I
 " tab
 nmap <S-h> gT
 nmap <S-l> gt
-nmap <S-Left> <Action>(com.mnw.tabmover.actions.MoveTabUpAction)
-nmap <S-Right> <Action>(com.mnw.tabmover.actions.MoveTabDownAction)
+nmap <S-Left> <action>(com.mnw.tabmover.actions.MoveTabUpAction)
+nmap <S-Right> <action>(com.mnw.tabmover.actions.MoveTabDownAction)
 
 " search
-nmap <C-S-P> <Action>(SearchEverywhere)
-nmap <C-P> <Action>(GotoFile)
-nmap <space>fg <Action>(FindInPath)
+nmap <C-S-P> <action>(SearchEverywhere)
+nmap <C-P> <action>(GotoFile)
+nmap <space>fg <action>(FindInPath)
 
 " edit
-nmap gh <Action>(MoveElementLeft)
-nmap gl <Action>(MoveElementRight)
+nmap gh <action>(MoveElementLeft)
+nmap gl <action>(MoveElementRight)
+
+" surround
+vmap sa S
+nmap sr cs
+nmap sd ds
 
 " format, saving
-nmap <space>ff <Action>(ReformatCode)
-nmap <space>fi <Action>(OptimizeImports)
-nmap <space>s <Action>(SaveDocument)
+nmap <space>ff <action>(ReformatCode)
+nmap <space>fi <action>(OptimizeImports)
+nmap <space>s <action>(SaveDocument)
 
 " Actions
-map <space><cr> <Action>(ShowIntentionActions)
+map <space><cr> <action>(ShowIntentionActions)
 
 " completion
-imap <c-l> <Action>(CodeCompletion)
+imap <c-l> <action>(CodeCompletion)
 
 " references
-nmap gr <Action>(FindUsages)
-nmap gy <Action>(GotoTypeDeclaration)
-nmap gi <Action>(GotoImplementation)
+nmap gr <action>(FindUsages)
+nmap gy <action>(GotoTypeDeclaration)
+nmap gi <action>(GotoImplementation)
+
+" comment
+nmap gcc <action>(CommentByLineComment)
+nmap gcw <action>(CommentByBlockComment)
 
 " jumping
-nmap [c <Action>(VcsShowPrevChangeMarker)
-nmap ]c <Action>(VcsShowNextChangeMarker)
-nmap [d <Action>(GotoPreviousError)
-nmap ]d <Action>(GotoNextError)
+nmap [c <action>(VcsShowPrevChangeMarker)
+nmap ]c <action>(VcsShowNextChangeMarker)
+nmap [d <action>(GotoPreviousError)
+nmap ]d <action>(GotoNextError)
 
 " refactoring
 nmap <space>rn <action>(RenameElement)

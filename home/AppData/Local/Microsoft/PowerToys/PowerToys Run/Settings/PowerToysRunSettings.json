@@ -1,21 +1,17 @@
 {
   "PreviousHotkey": "",
-  "Hotkey": "Alt + Space",
+  "Hotkey": "Alt \u002B Space",
+  "UseCentralizedKeyboardHook": false,
   "Language": "en",
   "Theme": 0,
+  "StartupPosition": 0,
   "QueryBoxFont": "Microsoft Sans Serif",
-  "QueryBoxFontStyle": null,
-  "QueryBoxFontWeight": null,
-  "QueryBoxFontStretch": null,
   "ResultFont": "Microsoft Sans Serif",
-  "ResultFontStyle": null,
-  "ResultFontWeight": null,
-  "ResultFontStretch": null,
   "AutoUpdates": false,
-  "WindowLeft": 192.0,
+  "WindowLeft": 192,
   "WindowTop": 188.8,
   "MaxResultsToShow": 4,
-  "ActivateTimes": 5,
+  "ActivateTimes": 4,
   "CustomPluginHotkeys": [],
   "DontPromptUpdateMsg": false,
   "EnableUpdateLog": false,
@@ -27,13 +23,10 @@
   "ClearInputOnLaunch": false,
   "RememberLastLaunchLocation": false,
   "IgnoreHotkeysOnFullscreen": false,
-  "UsePowerToysRunnerKeyboardHook": true,
+  "StartedFromPowerToysRunner": true,
   "Proxy": {
     "Enabled": false,
-    "Server": null,
-    "Port": 0,
-    "UserName": null,
-    "Password": null
+    "Port": 0
   },
   "LastQueryMode": "Selected"
 }
