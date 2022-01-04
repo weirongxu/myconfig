@@ -6,7 +6,7 @@ autoload -U +X compinit && compinit
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
@@ -44,3 +44,9 @@ if exists-cmd zinit; then
   zinit load jeffreytse/zsh-vi-mode
   ZVM_VI_SURROUND_BINDKEY=s-prefix
 fi
+
+function zsh_stats() {
+  fc -l 1 \
+    | awk '{ CMD[$2]++; count++; } END { for (a in CMD) print CMD[a] " " CMD[a]*100/count "% " a }' \
+    | grep -v "./" | sort -nr | head -n 20 | column -c3 -s " " -t | nl
+}

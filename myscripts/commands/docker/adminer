@@ -4,13 +4,13 @@ if [[ -n "$1" ]]; then
   plugin_path=$MYSCRIPTS_HOME/commands/pkgs/adminer/plugin.php
   db_fullpath=$(pwd)/$1
   docker run --name=adminer --rm -it \
-    -p 9070:8080 \
+    -p 127.0.0.1:9070:8080 \
     -v $db_fullpath:/data.db:rw \
     -v $plugin_path:/var/www/html/plugins-enabled/plugin.php \
     adminer
 else
   echo 'adminer run at http://127.0.0.1:9070'
   docker run --name=adminer --rm -it \
-    -p 9070:8080 \
+    -p 127.0.0.1:9070:8080 \
     adminer
 fi
