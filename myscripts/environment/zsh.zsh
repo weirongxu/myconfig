@@ -16,7 +16,8 @@ setopt auto_cd
 setopt multios
 
 if exists-cmd zinit; then
-  zinit light zdharma/fast-syntax-highlighting
+  # zinit light zdharma/fast-syntax-highlighting
+  zinit light zdharma-continuum/fast-syntax-highlighting
   zinit light zsh-users/zsh-autosuggestions
   zinit light zsh-users/zsh-completions
   zinit load agkozak/zsh-z
@@ -41,7 +42,8 @@ if exists-cmd zinit; then
   # zinit snippet OMZ::plugins/cargo/_cargo
 
   # zinit load softmoth/zsh-vim-mode
-  zinit load jeffreytse/zsh-vi-mode
+  zinit ice ver"fork"
+  zinit load weirongxu/zsh-vi-mode
   ZVM_VI_SURROUND_BINDKEY=s-prefix
 fi
 

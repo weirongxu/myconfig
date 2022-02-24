@@ -1,0 +1,6 @@
+patch:
+  schema_list:
+    - schema: wubi_pinyin
+    - schema: wubi
+    - schema: luna_pinyin
+    - schema: luna_pinyin_simp

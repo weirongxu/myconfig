@@ -32,12 +32,6 @@ if test -n "$BASH_RUNNER"
   $BASH_RUNNER "export CHINA_PROXY=$CHINA_PROXY >/dev/null"
   $BASH_RUNNER export MYSCRIPTS_HOME=$MYSCRIPTS_HOME
 
-  function myscripts
-    $BASH_RUNNER source "$MYSCRIPTS_HOME/common.sh" ";" \
-      source "$MYSCRIPTS_HOME/myscripts.sh" ";" \
-      myscripts $argv
-  end
-
   try-bash-source "$MYSCRIPTS_HOME/myshrc"
   source-myscript "fish/index.fish"
 end
