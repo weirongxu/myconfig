@@ -12,15 +12,13 @@ mpv = ConfigPath('.config/mpv/mpv.conf')
 sync_paths: List[OriginConfigPath] = [
     '.config/Zeal/Zeal.conf',
     '.config/fish/conf.d/my.fish',
+    '.config/wezterm/wezterm.lua',
     '_gdbinit',
     '.ctags',
     '.gitconfig',
     '.gitignore',
     '.editorconfig',
     '.aria2/aria2.conf',
-
-    '.config/ibus/rime/wubi_pinyin.schema.yaml',
-    '.config/ibus/rime/pinyin_simp.schema.yaml',
 
     'document/ref/get-php-en-ref.sh',
     'document/ref/get-php-zh-ref.sh',
