@@ -17,6 +17,8 @@ return {
     {key="8", mods="ALT", action={ActivateTab=7}},
     {key="9", mods="ALT", action={ActivateTab=8}},
     {key="0", mods="ALT", action="ShowTabNavigator"},
+    {key="v", mods="SHIFT|CTRL", action="Paste"},
+    {key="c", mods="SHIFT|CTRL", action="Copy"},
   },
   font_size = 12,
   line_height = 0.9,
