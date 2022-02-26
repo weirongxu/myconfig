@@ -27,7 +27,7 @@ sync_paths: List[OriginConfigPath] = [
 
     '.config/starship.toml',
 
-    '.tmux.conf.local',
+    '.tmux.conf',
 
     '.ideavimrc',
 ]
