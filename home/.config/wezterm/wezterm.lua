@@ -24,4 +24,11 @@ return {
   line_height = 0.9,
   audible_bell = 'Disabled',
   exit_behavior = 'Close',
+  -- use_fancy_tab_bar = false,
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
 }
