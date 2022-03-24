@@ -13,5 +13,5 @@ if exists-cmd 'exa'; then
 fi
 
 if exists-cmd 'bat'; then
-  alias cat=bat
+  alias cat="bat -p"
 fi
