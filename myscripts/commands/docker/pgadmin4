@@ -10,7 +10,7 @@ else
   record_path=$HOME/.record/pgadmin4
   mkdir $record_path
   sudo chmod o=rwX -R $record_path
-  sudo chown $USER -R $record_path
+  sudo chown 5050 -R $record_path
   docker run --name=pgadmin4 -d \
     --network host \
     -v $record_path:/var/lib/pgadmin:rw \
