@@ -56,16 +56,8 @@ add-path() {
   fi
 }
 
-add-myscript-path() {
-  add-path "$MYSCRIPTS_HOME/$1"
-}
-
 try-source() {
   if [[ -s "$1" ]]; then
     . "$1"
   fi
-}
-
-source-myscript() {
-  source "$MYSCRIPTS_HOME/$1"
 }

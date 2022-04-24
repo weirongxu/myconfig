@@ -2,14 +2,14 @@ import argparse
 from enum import Enum
 import glob
 import os
-from pathlib import PurePath
-from pprint import pp
 import shutil
-import textwrap
-from typing import Dict, List, Literal, Optional, Tuple, TypedDict, Union
+from typing import List, Literal, Tuple
 
-from script.config import Config, ConfigPath
-from script.core import env
+from core.io import textFs
+
+from .initrc import Initrc
+from .config import Config, ConfigPath
+from .env import env
 
 Position = Literal['user_home', 'store', 'store_china']
 Transfer = Tuple[Position, Position]
@@ -27,9 +27,11 @@ class Cli:
     def __init__(self, config: Config) -> None:
         self.config = config
         self.args = self.parse()
-        if self.args.subcommand == 'update-to-home':
+        self.initrc = Initrc(self)
+        self.subcommand: Literal['update-to-home', 'fetch-from-home'] = self.args.subcommand
+        if self.subcommand == 'update-to-home':
             self.update_to_home()
-        elif self.args.subcommand == 'fetch-from-home':
+        elif self.subcommand == 'fetch-from-home':
             self.fetch_from_home()
 
     @staticmethod
@@ -49,43 +51,26 @@ class Cli:
     def is_china(self) -> bool:
         return self.args.china == True
 
-    def install_myscripts(self):
-        myscripts_path = os.path.join(env.cwd, 'myscripts')
+    def install_initrc(self):
+        self.initrc.install()
 
-        shell_script = textwrap.dedent(f"""
-        export MYSCRIPTS_HOME="{myscripts_path}"
-        [[ -s "$MYSCRIPTS_HOME/myshrc" ]] && . "$MYSCRIPTS_HOME/myshrc"
-        """)
+        # china proxy
+        self.install_bash_script('00-env.sh', 'CHINA_PROXY=1')
+        self.install_fish_script('00-env.fish', 'set -g CHINA_PROXY 1')
 
-        if self.is_china:
-            shell_script = "\nCHINA_PROXY=1\n" + shell_script
+    def install_base_script(self, dir: str, filename: str, content: str):
+        script_path = os.path.join(dir, filename)
+        exists_content = textFs.read(script_path)
+        if exists_content != content:
+            textFs.write(script_path, content)
+            self.output(f'{script_path} installed', 'info')
 
-        for path in ['~/.bashrc', '~/.zshrc']:
-            path = os.path.normpath(path)
-            with open(os.path.expanduser(path), 'a+') as f:
-                f.seek(0)
-                if shell_script not in f.read():
-                    f.write(shell_script)
-                    self.output(f'Install scripts to {path}', 'info')
+    def install_bash_script(self, filename: str, content: str):
+        self.install_base_script(self.initrc.initrc_dir, filename, content)
 
-        fish_script = textwrap.dedent(f"""
-        if status is-interactive
-            set -g MYSCRIPTS_HOME "{myscripts_path}"
-            if test -s "$MYSCRIPTS_HOME/myshrc.fish"
-                . "$MYSCRIPTS_HOME/myshrc.fish"
-            end
-        end
-        """)
-
-        if self.is_china:
-            shell_script = "\nset -g CHINA_PROXY 1\n" + fish_script
-
-        fish_script_path = os.path.normpath(os.path.expanduser(
-            '~/.config/fish/conf.d/myscripts.fish'))
-        with open(fish_script_path, 'w') as f:
-            f.write(fish_script)
-            self.output(
-                f'Install scripts to {fish_script_path}', 'info')
+    def install_fish_script(self, filename: str, content: str):
+        self.install_base_script(os.path.expanduser(
+            '~/.config/fish/conf.d/'), filename, content)
 
     def ignored(self, filepath: str):
         return any([(ignore in filepath) for ignore in self.config.ignores])
@@ -168,7 +153,7 @@ class Cli:
         if self.is_china:
             self.glob_copy_to(self.config.china_sync_paths,
                               ('store_china', 'user_home'))
-        self.install_myscripts()
+        self.install_initrc()
         self.output('Done: update-to-home', 'info')
 
     def fetch_from_home(self):

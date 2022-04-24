@@ -39,11 +39,11 @@ class Env():
 
     @property
     def store_home(self) -> str:
-        return os.path.normpath(os.path.join(self.cwd, 'home'))
+        return os.path.normpath(os.path.join(self.cwd, 'dotfiles/home'))
 
     @property
     def store_home_china(self) -> str:
-        return os.path.normpath(os.path.join(self.cwd, 'home_china'))
+        return os.path.normpath(os.path.join(self.cwd, 'dotfiles/home_china'))
 
 
 env = Env()

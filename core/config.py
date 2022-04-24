@@ -1,15 +1,9 @@
 from __future__ import annotations
-from argparse import ArgumentTypeError
-from glob import glob
-import os
 import copy
-import shutil
-import subprocess
-from dataclasses import dataclass
-from types import LambdaType
-from typing import Any, Callable, List, Literal, Optional, Union, overload
+import os
+from typing import List, Optional, Union
 
-from script.core import Platform, env, unwrap
+from .env import Platform, env, unwrap
 
 
 class ConfigPath():
@@ -94,18 +88,6 @@ class Config():
         sync_paths: List[OriginConfigPath],
         china_sync_paths: List[OriginConfigPath],
     ) -> None:
-        _user_home_dir = os.getenv('HOME')
-        if not _user_home_dir and env.isWin:
-            _user_home_dir = env.get_power_shell_var("HOME")
-        self.user_home_dir = unwrap(_user_home_dir, "$HOME")
-
-        if env.isWin:
-            profile_path = unwrap(
-                env.get_power_shell_var("PROFILE"), '$PROFILE')
-            profile_rel_path = os.path.relpath(
-                profile_path, self.user_home_dir)
-            sync_paths.append(profile_rel_path)
-
         self.ignores = ignores
         self.sync_paths = list(map(self.to_config_path, sync_paths))
         self.china_sync_paths = list(

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 import os
+import textwrap
 from typing import List
 
-from script.cli import Cli
-from script.config import Config, ConfigPath, OriginConfigPath
-from script.core import env, unwrap
+from core.cli import Cli
+from core.config import Config, ConfigPath, OriginConfigPath
+from core.env import env, unwrap
 
 mpv = ConfigPath('.config/mpv/mpv.conf')
 
@@ -20,9 +21,6 @@ sync_paths: List[OriginConfigPath] = [
     '.editorconfig',
     '.aria2/aria2.conf',
 
-    'document/ref/get-php-en-ref.sh',
-    'document/ref/get-php-zh-ref.sh',
-
     '.config/nvim/init.vim',
 
     '.config/starship.toml',
@@ -32,16 +30,20 @@ sync_paths: List[OriginConfigPath] = [
     '.ideavimrc',
 ]
 
+# mpv
 if env.isWin:
     sync_paths.append(mpv.user_home(os.path.join(
         unwrap(os.getenv('APPDATA')), 'mpv/mpv.conf')))
-
-    sync_paths.append(
-        ConfigPath(
-            os.path.join(unwrap(os.getenv('LOCALAPPDATA')),
-                         'Microsoft/PowerToys')).glob('**/*.json'))
 else:
     sync_paths.append(mpv)
+
+# powershell
+if env.isWin:
+    profile_path = unwrap(
+        env.get_power_shell_var("PROFILE"), '$PROFILE')
+    profile_rel_path = os.path.relpath(
+        profile_path, env.user_home)
+    sync_paths.append(profile_rel_path)
 
 config = Config(
     ignores=['.DS_Store'],
@@ -54,5 +56,22 @@ config = Config(
 )
 
 
-if __name__ == '__main__':
-    Cli(config)
+cli = Cli(config)
+
+if cli.subcommand == 'update-to-home':
+    # install config
+    config_path = os.path.join(env.cwd, 'config')
+
+    shell_script = textwrap.dedent(f"""
+    [[ -s "{config_path}/myshrc" ]] && . "{config_path}/myshrc" "{config_path}"
+    """)
+    cli.install_bash_script('99_myconfig.sh', shell_script)
+
+    fish_script = textwrap.dedent(f"""
+    if status is-interactive
+        if test -s "{config_path}/myshrc.fish"
+            . "{config_path}/myshrc.fish" "{config_path}"
+        end
+    end
+    """)
+    cli.install_fish_script('99-myscripts.fish', fish_script)
