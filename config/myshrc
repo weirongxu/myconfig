@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-export MYSCRIPTS_HOME="$1"
-. "$MYSCRIPTS_HOME/common.sh"
-. "$MYSCRIPTS_HOME/common-local.sh"
-
-source-myscript "boot.sh"
-source-myscript "commands/index.sh"
-# source-myscript "keyboard.sh"

@@ -58,20 +58,20 @@ config = Config(
 
 cli = Cli(config)
 
-if cli.subcommand == 'update-to-home':
+if cli.subcommand == 'to-home':
     # install config
     config_path = os.path.join(env.cwd, 'config')
 
     shell_script = textwrap.dedent(f"""
-    [[ -s "{config_path}/myshrc" ]] && . "{config_path}/myshrc" "{config_path}"
+    [[ -s "{config_path}/boot.sh" ]] && . "{config_path}/boot.sh" "{config_path}"
     """)
     cli.install_bash_script('99_myconfig.sh', shell_script)
 
     fish_script = textwrap.dedent(f"""
     if status is-interactive
-        if test -s "{config_path}/myshrc.fish"
-            . "{config_path}/myshrc.fish" "{config_path}"
+        if test -s "{config_path}/boot.fish"
+            . "{config_path}/boot.fish" "{config_path}"
         end
     end
     """)
-    cli.install_fish_script('99-myscripts.fish', fish_script)
+    cli.install_fish_script('99-myconfig.fish', fish_script)

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if ! exists-cmd open-cli; then
+  npm i -g open-cli
+fi
+open-cli "$@"

@@ -28,10 +28,10 @@ class Cli:
         self.config = config
         self.args = self.parse()
         self.initrc = Initrc(self)
-        self.subcommand: Literal['update-to-home', 'fetch-from-home'] = self.args.subcommand
-        if self.subcommand == 'update-to-home':
+        self.subcommand: Literal['to-home', 'from-home'] = self.args.subcommand
+        if self.subcommand == 'to-home':
             self.update_to_home()
-        elif self.subcommand == 'fetch-from-home':
+        elif self.subcommand == 'from-home':
             self.fetch_from_home()
 
     @staticmethod
@@ -43,8 +43,8 @@ class Cli:
                             default=False,
                             help='include china proxy configuration')
         subparsers = parser.add_subparsers(required=True, dest='subcommand')
-        subparsers.add_parser('update-to-home')
-        subparsers.add_parser('fetch-from-home')
+        subparsers.add_parser('to-home')
+        subparsers.add_parser('from-home')
         return parser.parse_args()
 
     @property
@@ -154,11 +154,11 @@ class Cli:
             self.glob_copy_to(self.config.china_sync_paths,
                               ('store_china', 'user_home'))
         self.install_initrc()
-        self.output('Done: update-to-home', 'info')
+        self.output('Done: to-home', 'info')
 
     def fetch_from_home(self):
         self.glob_copy_to(self.config.sync_paths, ('user_home', 'store'))
         if self.is_china:
             self.glob_copy_to(self.config.china_sync_paths,
                               ('user_home', 'store_china'))
-        self.output('Done: fetch-from-home', 'info')
+        self.output('Done: from-home', 'info')
