@@ -9,7 +9,3 @@
 ```shell
 ./script.py fetch-from-home
 ```
-
-# TODO
-
--   myscripts completion
