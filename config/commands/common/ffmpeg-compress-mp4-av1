@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# ffmpeg -i $1 -c:a copy -c:v libaom-av1 -b:v 0 $2
+
+ffmpeg -i $1 -c:a copy -c:v libsvtav1 $2
