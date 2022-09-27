@@ -7,7 +7,9 @@ alias tn="tmux new -s"
 # alias tl="trash-list"
 # alias te="trash-empty"
 
-if exists-cmd 'exa'; then
+if exists-cmd 'lsd'; then
+  alias ls=lsd
+elif exists-cmd 'exa'; then
   alias ls=exa
   alias la="exa -laa"
 fi
