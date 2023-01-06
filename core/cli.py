@@ -54,9 +54,10 @@ class Cli:
     def install_initrc(self):
         self.initrc.install()
 
-        # china proxy
-        self.install_bash_script('00-env.sh', 'CHINA_PROXY=1')
-        self.install_fish_script('00-env.fish', 'set -g CHINA_PROXY 1')
+        if self.is_china:
+            # china proxy
+            self.install_bash_script('00-env.sh', 'CHINA_PROXY=1')
+            self.install_fish_script('00-env.fish', 'set -g CHINA_PROXY 1')
 
     def install_base_script(self, dir: str, filename: str, content: str):
         script_path = os.path.join(dir, filename)
