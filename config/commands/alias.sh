@@ -14,6 +14,10 @@ elif exists-cmd 'exa'; then
   alias la="exa -laa"
 fi
 
+if exists-cmd 'batcat'; then
+  alias bat="batcat"
+fi
+
 if exists-cmd 'bat'; then
   alias cat="bat -p"
 fi
