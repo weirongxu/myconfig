@@ -1,11 +1,11 @@
 # Update configuration to \$HOME
 
 ```shell
-./script.py update-to-home
+./script.py to-home
 ```
 
 # From \$HOME synchronize configuration
 
 ```shell
-./script.py fetch-from-home
+./script.py from-home
 ```
