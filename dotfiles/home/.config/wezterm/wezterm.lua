@@ -6,6 +6,7 @@ return {
     "JetBrainsMono Nerd Font",
     -- "Noto Sans Mono CJK SC",
   }),
+  hide_mouse_cursor_when_typing = false,
   keys = {
     {key="1", mods="ALT", action={ActivateTab=0}},
     {key="2", mods="ALT", action={ActivateTab=1}},
