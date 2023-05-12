@@ -129,8 +129,8 @@ class Cli:
             if path.glob_path is None:
                 if self.ignored(source_path):
                     continue
-                self.copy_to(transfer, source_path, target_path)
                 self.print_copy_to(transfer, source_path, target_path)
+                self.copy_to(transfer, source_path, target_path)
             else:
                 self.print_copy_to(transfer, source_path, target_path)
                 for filepath in glob.glob(os.path.join(

@@ -18,6 +18,10 @@ elif [ -n "$BASH_VERSION" ]; then
   export SHELL_TYPE='bash'
 fi
 
+is-bash() {
+  [[ "$SHELL_TYPE" == 'bash' ]]
+}
+
 is-zsh() {
   [[ "$SHELL_TYPE" == 'zsh' ]]
 }
