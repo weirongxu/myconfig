@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+
+if is-zsh; then
+  source-myscript 'environment/zsh.zsh'
+  try-source "$HOME/.fzf.zsh"
+  try-source /usr/share/skim/key-bindings.zsh
+else
+  try-source /usr/share/skim/key-bindings.bash
+fi
+
 source-myscript 'environment/asdf.sh'
 source-myscript 'environment/linux-brew.sh'
 source-myscript 'environment/macos-port.sh'
@@ -19,13 +28,6 @@ source-myscript 'environment/rust.sh'
 source-myscript 'environment/starship.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
   source-myscript 'environment/china.sh'
-fi
-if is-zsh; then
-  source-myscript 'environment/zsh.zsh'
-  try-source "$HOME/.fzf.zsh"
-  try-source /usr/share/skim/key-bindings.zsh
-else
-  try-source /usr/share/skim/key-bindings.bash
 fi
 if [[ -z $XDG_CACHE_HOME ]]; then
   export XDG_CACHE_HOME="$HOME/.cache"
