@@ -3,7 +3,7 @@ import copy
 import os
 from typing import List, Optional, Union
 
-from .env import Platform, env, unwrap
+from .env import Platform, env
 
 
 class ConfigPath():
