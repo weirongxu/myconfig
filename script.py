@@ -8,8 +8,6 @@ from core.cli import Cli
 from core.config import Config, ConfigPath, OriginConfigPath
 from core.env import env, unwrap
 
-mpv = ConfigPath('.config/mpv/mpv.conf')
-
 sync_paths: List[OriginConfigPath] = [
     '.config/Zeal/Zeal.conf',
     '.config/fish/conf.d/my.fish',
@@ -31,11 +29,20 @@ sync_paths: List[OriginConfigPath] = [
 ]
 
 # mpv
-if env.isWin:
-    sync_paths.append(mpv.user_home(os.path.join(
-        unwrap(os.getenv('APPDATA')), 'mpv/mpv.conf')))
-else:
-    sync_paths.append(mpv)
+mpv_list = ['mpv.conf', 'input.conf']
+mpv_paths = [ConfigPath(f'.config/mpv/{it}') for it in mpv_list]
+for mpv_path in mpv_paths:
+    if env.isWin:
+        sync_paths.append(mpv_path.user_home(os.path.join(
+            unwrap(os.getenv('APPDATA')), 'mpv')))
+    else:
+        sync_paths.append(mpv_path)
+
+china_sync_paths: List[OriginConfigPath] = [
+    '.npmrc',
+    '.composer/config.json',
+    '.pip/pip.conf',
+]
 
 # powershell
 if env.isWin:
@@ -48,11 +55,7 @@ if env.isWin:
 config = Config(
     ignores=['.DS_Store'],
     sync_paths=sync_paths,
-    china_sync_paths=[
-        '.npmrc',
-        '.composer/config.json',
-        '.pip/pip.conf',
-    ]
+    china_sync_paths=china_sync_paths,
 )
 
 

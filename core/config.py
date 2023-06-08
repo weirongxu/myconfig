@@ -45,25 +45,30 @@ class ConfigPath():
         return c
 
     def store(self, store_path: str):
+        """force to set the store path"""
         c = self.clone()
         c._store_path = os.path.normpath(store_path)
         return c
 
     @property
     def store_path(self):
+        """get path store in this repo"""
         return os.path.join(env.store_home, self._store_path if self._store_path else self.path)
 
     @property
     def store_china_path(self):
+        """get path store in this repo in china environment"""
         return os.path.join(env.store_home_china, self._store_path if self._store_path else self.path)
 
     def user_home(self, user_home_path: str):
+        """force to set the user home path"""
         c = self.clone()
         c._user_home_path = os.path.normpath(user_home_path)
         return c
 
     @property
     def user_home_path(self):
+        """get user home path"""
         return os.path.join(env.user_home, self._user_home_path if self._user_home_path else self.path)
 
     def only(self, platform: Platform):
