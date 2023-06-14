@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import shutil
 import textwrap
 from typing import List
 
@@ -30,13 +31,12 @@ sync_paths: List[OriginConfigPath] = [
 
 # mpv
 mpv_list = ['mpv.conf', 'input.conf']
-mpv_paths = [ConfigPath(f'.config/mpv/{it}') for it in mpv_list]
-for mpv_path in mpv_paths:
+for it in mpv_list:
     if env.isWin:
-        sync_paths.append(mpv_path.user_home(os.path.join(
-            unwrap(os.getenv('APPDATA')), 'mpv')))
+        sync_paths.append(ConfigPath(f'.config/mpv/{it}').user_home(os.path.join(
+            unwrap(os.getenv('APPDATA')), f'mpv/{it}')))
     else:
-        sync_paths.append(mpv_path)
+        sync_paths.append(f'.config/mpv/{it}')
 
 china_sync_paths: List[OriginConfigPath] = [
     '.npmrc',
@@ -78,3 +78,10 @@ if cli.subcommand == 'to-home':
     end
     """)
     cli.install_fish_script('99-myconfig.fish', fish_script)
+
+    # remove mpv portable_config
+    if env.isWin:
+        portable_config_path = os.path.realpath(os.path.join(
+            env.user_home, 'scoop/apps/mpv/current/portable_config'))
+        if os.path.exists(portable_config_path):
+            shutil.rmtree(portable_config_path)
