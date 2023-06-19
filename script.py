@@ -19,13 +19,10 @@ sync_paths: List[OriginConfigPath] = [
     '.gitignore',
     '.editorconfig',
     '.aria2/aria2.conf',
-
+    '.asdfrc',
     '.config/nvim/init.vim',
-
     '.config/starship.toml',
-
     '.tmux.conf',
-
     '.ideavimrc',
 ]
 
