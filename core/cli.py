@@ -26,7 +26,7 @@ class Cli:
 
     def __init__(self, config: Config) -> None:
         self.config = config
-        self.args = self.parse()
+        self.args = self.parse_args()
         self.initrc = Initrc(self)
         self.subcommand: Literal['to-home', 'from-home'] = self.args.subcommand
         if self.subcommand == 'to-home':
@@ -35,7 +35,7 @@ class Cli:
             self.fetch_from_home()
 
     @staticmethod
-    def parse():
+    def parse_args():
         parser = argparse.ArgumentParser(
             prog='myconfig script', description="myconfig")
         parser.add_argument('--china',
@@ -77,10 +77,11 @@ class Cli:
         return any([(ignore in filepath) for ignore in self.config.ignores])
 
     def simplify_path(self, position: Position, path: str):
+        """simplify path for print in output"""
         if position == 'user_home':
             return f'~{os.path.sep}{os.path.relpath(path, env.user_home)}'
         elif position == 'store' or position == 'store_china':
-            return f'.{os.path.sep}{os.path.relpath(path, env.cwd)}'
+            return f'.{os.path.sep}{os.path.relpath(path, env.app_root)}'
         else:
             raise TypeError(f"{position} not support")
 
@@ -96,15 +97,12 @@ class Cli:
 
     def copy_to(
         self,
-        transfer: Transfer,
         source_path: str,
         target_path: str,
     ):
         if os.path.isfile(source_path):
-            os.makedirs(os.path.dirname(
-                target_path), exist_ok=True)
-            shutil.copyfile(source_path, target_path,
-                            follow_symlinks=True)
+            os.makedirs(os.path.dirname(target_path), exist_ok=True)
+            shutil.copyfile(source_path, target_path, follow_symlinks=True)
         else:
             self.output(f'{source_path} not found', 'error')
 
@@ -121,6 +119,7 @@ class Cli:
         for path in paths:
             if not path.matched_platform():
                 continue
+
             source_pos = transfer[0]
             target_pos = transfer[1]
             source_path = self.path_by_position(source_pos, path)
@@ -130,7 +129,7 @@ class Cli:
                 if self.ignored(source_path):
                     continue
                 self.print_copy_to(transfer, source_path, target_path)
-                self.copy_to(transfer, source_path, target_path)
+                self.copy_to(source_path, target_path)
             else:
                 self.print_copy_to(transfer, source_path, target_path)
                 for filepath in glob.glob(os.path.join(
@@ -142,12 +141,11 @@ class Cli:
                     target_filepath = os.path.join(
                         target_path, rel_target_path)
                     self.copy_to(
-                        transfer,
                         filepath,
                         target_filepath,
                     )
                     self.output(
-                        f'    {rel_target_path} => ...', 'info')
+                        f'    {rel_target_path} => *', 'info')
 
     def update_to_home(self):
         self.glob_copy_to(self.config.sync_paths, ('store', 'user_home'))

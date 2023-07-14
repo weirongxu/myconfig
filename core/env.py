@@ -1,3 +1,4 @@
+from os import path
 import os
 import platform
 import pprint
@@ -27,7 +28,7 @@ class Env():
             _user_home = self.get_power_shell_var("HOME")
         self.user_home = unwrap(_user_home, "$HOME")
 
-        self.cwd = os.getcwd()
+        self.app_root = path.normpath(path.join(path.dirname(__file__), '../'))
 
     def get_power_shell_var(self, varname: str):
         completed = subprocess.run([
@@ -39,11 +40,11 @@ class Env():
 
     @property
     def store_home(self) -> str:
-        return os.path.normpath(os.path.join(self.cwd, 'dotfiles/home'))
+        return path.normpath(path.join(self.app_root, 'dotfiles/home'))
 
     @property
     def store_home_china(self) -> str:
-        return os.path.normpath(os.path.join(self.cwd, 'dotfiles/home_china'))
+        return path.normpath(path.join(self.app_root, 'dotfiles/home_china'))
 
 
 env = Env()

@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import shutil
 import textwrap
 from typing import List
 
 from core.cli import Cli
-from core.config import Config, ConfigPath, OriginConfigPath
+from core.config import Config, OriginConfigPath
 from core.env import env, unwrap
 
 sync_paths: List[OriginConfigPath] = [
@@ -25,15 +24,6 @@ sync_paths: List[OriginConfigPath] = [
     '.tmux.conf',
     '.ideavimrc',
 ]
-
-# mpv
-mpv_list = ['mpv.conf', 'input.conf']
-for it in mpv_list:
-    if env.isWin:
-        sync_paths.append(ConfigPath(f'.config/mpv/{it}').user_home(os.path.join(
-            unwrap(os.getenv('APPDATA')), f'mpv/{it}')))
-    else:
-        sync_paths.append(f'.config/mpv/{it}')
 
 china_sync_paths: List[OriginConfigPath] = [
     '.npmrc',
@@ -60,7 +50,7 @@ cli = Cli(config)
 
 if cli.subcommand == 'to-home':
     # install config
-    config_path = os.path.join(env.cwd, 'config')
+    config_path = os.path.join(env.app_root, 'config')
 
     shell_script = textwrap.dedent(f"""
     [[ -s "{config_path}/boot.sh" ]] && . "{config_path}/boot.sh" "{config_path}"
@@ -75,10 +65,3 @@ if cli.subcommand == 'to-home':
     end
     """)
     cli.install_fish_script('99-myconfig.fish', fish_script)
-
-    # remove mpv portable_config
-    if env.isWin:
-        portable_config_path = os.path.realpath(os.path.join(
-            env.user_home, 'scoop/apps/mpv/current/portable_config'))
-        if os.path.exists(portable_config_path):
-            shutil.rmtree(portable_config_path)

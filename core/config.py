@@ -1,6 +1,7 @@
 from __future__ import annotations
 import copy
 import os
+from os import path
 from typing import List, Optional, Union
 
 from .env import Platform, env
@@ -24,63 +25,66 @@ class ConfigPath():
     ```
     """
 
-    path: str
-    _store_path: Optional[str] = None
-    _user_home_path: Optional[str] = None
-    platform: Optional[Platform] = None
+    _store_path: str
+    _user_home_path: str
+    _platform: Optional[Platform] = None
     glob_path: Optional[str] = None
 
     def __init__(self, path: str) -> None:
-        npath = os.path.normpath(path)
-        if npath.startswith(env.user_home):
-            npath = os.path.relpath(npath, env.user_home)
-        self.path = npath
+        # get relative path
+        relpath = os.path.normpath(path)
+        if relpath.startswith(env.user_home):
+            relpath = os.path.relpath(relpath, env.user_home)
+
+        self._user_home_path = relpath
+        self._store_path = relpath
 
     def clone(self) -> ConfigPath:
         return copy.copy(self)
 
     def glob(self, glob_path: str):
         c = self.clone()
-        c.glob_path = os.path.normpath(glob_path)
+        c.glob_path = path.normpath(glob_path)
         return c
 
     def store(self, store_path: str):
         """force to set the store path"""
         c = self.clone()
-        c._store_path = os.path.normpath(store_path)
+        c._store_path = path.normpath(store_path)
         return c
 
     @property
     def store_path(self):
         """get path store in this repo"""
-        return os.path.join(env.store_home, self._store_path if self._store_path else self.path)
+        return path.join(env.store_home, self._store_path)
 
     @property
     def store_china_path(self):
         """get path store in this repo in china environment"""
-        return os.path.join(env.store_home_china, self._store_path if self._store_path else self.path)
+        return path.join(env.store_home_china, self._store_path)
 
     def user_home(self, user_home_path: str):
         """force to set the user home path"""
         c = self.clone()
-        c._user_home_path = os.path.normpath(user_home_path)
+        c._user_home_path = path.normpath(user_home_path)
         return c
 
     @property
     def user_home_path(self):
         """get user home path"""
-        return os.path.join(env.user_home, self._user_home_path if self._user_home_path else self.path)
+        return path.join(env.user_home, self._user_home_path)
 
-    def only(self, platform: Platform):
+    def only_platform(self, platform: Platform):
+        """only for platform"""
         c = self.clone()
-        c.platform = platform
+        c._platform = platform
         return c
 
     def matched_platform(self):
-        if self.platform is None:
+        if self._platform is None:
             return True
         else:
-            return self.platform == env.platform
+            return self._platform == env.platform
 
 
 OriginConfigPath = Union[str, ConfigPath]
