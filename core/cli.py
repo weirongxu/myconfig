@@ -102,7 +102,7 @@ class Cli:
     ):
         if os.path.isfile(source_path):
             os.makedirs(os.path.dirname(target_path), exist_ok=True)
-            shutil.copyfile(source_path, target_path, follow_symlinks=True)
+            shutil.copy(source_path, target_path, follow_symlinks=True)
         else:
             self.output(f'{source_path} not found', 'error')
 
