@@ -8,6 +8,5 @@ add-path "$HOME/bin"
 add-path "$HOME/.local/bin"
 
 source-myscript 'environment/index.sh'
-try-source "$HOME/apps/rc.sh"
 source-myscript "commands/index.sh"
 # source-myscript "keyboard.sh"
