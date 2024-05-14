@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+mpv --really-quiet --vo=tct "$@"
