@@ -1,1 +1,1 @@
-copy .\rime\wubi_pinyin.custom.yaml %AppData%\Rime\wubi_pinyin.custom.yaml
+copy .\rime\default.custom.yaml %AppData%\Rime\default.custom.yaml
