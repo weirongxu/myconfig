@@ -18,6 +18,6 @@ if exists-cmd 'batcat'; then
   alias bat="batcat"
 fi
 
-if exists-cmd 'bat'; then
-  alias cat="bat -p"
-fi
+# if exists-cmd 'bat'; then
+#   alias cat="bat -p"
+# fi
