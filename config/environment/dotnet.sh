@@ -18,7 +18,7 @@ if is-zsh; then
   }
 
   compdef _dotnet_zsh_complete dotnet
-else if is-bash
+elif is-bash; then
   function _dotnet_bash_complete()
   {
     local cur="${COMP_WORDS[COMP_CWORD]}" IFS=$'\n'
