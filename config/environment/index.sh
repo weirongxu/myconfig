@@ -11,6 +11,7 @@ else
 fi
 
 source-myscript 'environment/asdf.sh'
+source-myscript 'environment/golang.sh'
 source-myscript 'environment/linux-brew.sh'
 source-myscript 'environment/macos-port.sh'
 source-myscript 'environment/android.sh'
@@ -23,7 +24,6 @@ source-myscript 'environment/php.sh'
 source-myscript 'environment/python.sh'
 source-myscript 'environment/ruby.sh'
 source-myscript 'environment/vim.sh'
-source-myscript 'environment/golang.sh'
 source-myscript 'environment/rust.sh'
 source-myscript 'environment/starship.sh'
 if [[ ! -z $CHINA_PROXY ]]; then
