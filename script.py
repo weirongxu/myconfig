@@ -2,13 +2,12 @@
 
 import os
 import textwrap
-from typing import List
 
 from core.cli import Cli
 from core.config import Config, OriginConfigPath
 from core.env import env, unwrap
 
-sync_paths: List[OriginConfigPath] = [
+sync_paths: list[OriginConfigPath] = [
     '.config/Zeal/Zeal.conf',
     '.config/fish/conf.d/my.fish',
     '.config/wezterm/wezterm.lua',
@@ -25,12 +24,6 @@ sync_paths: List[OriginConfigPath] = [
     '.ideavimrc',
 ]
 
-china_sync_paths: List[OriginConfigPath] = [
-    '.npmrc',
-    '.composer/config.json',
-    '.pip/pip.conf',
-]
-
 # powershell
 if env.isWin:
     profile_path = unwrap(
@@ -42,7 +35,6 @@ if env.isWin:
 config = Config(
     ignores=['.DS_Store'],
     sync_paths=sync_paths,
-    china_sync_paths=china_sync_paths,
 )
 
 

@@ -1,14 +1,12 @@
-from os import path
 import os
 import platform
 import pprint
 import subprocess
-from typing import Literal, Optional, TypeVar
+from os import path
+from typing import Literal
 
-T = TypeVar("T")
 
-
-def unwrap(v: Optional[T], desc: Optional[str] = None) -> T:
+def unwrap[T](v: T | None, desc: str | None = None) -> T:
     if v is None:
         raise ValueError(f"Unexpected None {desc}")
     return v
@@ -17,8 +15,9 @@ def unwrap(v: Optional[T], desc: Optional[str] = None) -> T:
 Platform = Literal['win', 'unix']
 
 
-class Env():
+class Env:
     isWin: bool = platform.system() == 'Windows'
+    isLinux: bool = platform.system() == 'Linux'
     isUnix = not isWin
     platform: Platform = 'win' if isWin else 'unix'
 
@@ -42,9 +41,6 @@ class Env():
     def store_home(self) -> str:
         return path.normpath(path.join(self.app_root, 'dotfiles/home'))
 
-    @property
-    def store_home_china(self) -> str:
-        return path.normpath(path.join(self.app_root, 'dotfiles/home_china'))
 
 
 env = Env()

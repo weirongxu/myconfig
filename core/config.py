@@ -1,13 +1,13 @@
 from __future__ import annotations
+
 import copy
 import os
 from os import path
-from typing import List, Optional, Union
 
 from .env import Platform, env
 
 
-class ConfigPath():
+class ConfigPath:
     """
     @example
     ```
@@ -27,8 +27,8 @@ class ConfigPath():
 
     _store_path: str
     _user_home_path: str
-    _platform: Optional[Platform] = None
-    glob_path: Optional[str] = None
+    _platform: Platform | None = None
+    glob_path: str | None = None
 
     def __init__(self, path: str) -> None:
         # get relative path
@@ -58,11 +58,6 @@ class ConfigPath():
         """get path store in this repo"""
         return path.join(env.store_home, self._store_path)
 
-    @property
-    def store_china_path(self):
-        """get path store in this repo in china environment"""
-        return path.join(env.store_home_china, self._store_path)
-
     def user_home(self, user_home_path: str):
         """force to set the user home path"""
         c = self.clone()
@@ -87,20 +82,17 @@ class ConfigPath():
             return self._platform == env.platform
 
 
-OriginConfigPath = Union[str, ConfigPath]
+OriginConfigPath = str | ConfigPath
 
 
-class Config():
+class Config:
     def __init__(
         self,
-        ignores: List[str],
-        sync_paths: List[OriginConfigPath],
-        china_sync_paths: List[OriginConfigPath],
+        ignores: list[str],
+        sync_paths: list[OriginConfigPath],
     ) -> None:
         self.ignores = ignores
         self.sync_paths = list(map(self.to_config_path, sync_paths))
-        self.china_sync_paths = list(
-            map(self.to_config_path, china_sync_paths))
 
     def to_config_path(self, p: OriginConfigPath) -> ConfigPath:
         if isinstance(p, str):
@@ -108,8 +100,6 @@ class Config():
         else:
             return p
 
-    ignores: List[str]
+    ignores: list[str]
 
-    sync_paths: List[ConfigPath]
-
-    china_sync_paths: List[ConfigPath]
+    sync_paths: list[ConfigPath]

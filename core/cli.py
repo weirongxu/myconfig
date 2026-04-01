@@ -1,18 +1,18 @@
 import argparse
-from enum import Enum
 import glob
 import os
 import shutil
-from typing import List, Literal, Tuple
+from enum import Enum
+from typing import Literal
 
 from core.io import textFs
 
-from .initrc import Initrc
 from .config import Config, ConfigPath
 from .env import env
+from .initrc import Initrc
 
-Position = Literal['user_home', 'store', 'store_china']
-Transfer = Tuple[Position, Position]
+Position = Literal['user_home', 'store']
+Transfer = tuple[Position, Position]
 
 
 class Cli:
@@ -38,26 +38,13 @@ class Cli:
     def parse_args():
         parser = argparse.ArgumentParser(
             prog='myconfig script', description="myconfig")
-        parser.add_argument('--china',
-                            type=bool,
-                            default=False,
-                            help='include china proxy configuration')
         subparsers = parser.add_subparsers(required=True, dest='subcommand')
         subparsers.add_parser('to-home')
         subparsers.add_parser('from-home')
         return parser.parse_args()
 
-    @property
-    def is_china(self) -> bool:
-        return self.args.china == True
-
     def install_initrc(self):
         self.initrc.install()
-
-        if self.is_china:
-            # china proxy
-            self.install_bash_script('00-env.sh', 'CHINA_PROXY=1')
-            self.install_fish_script('00-env.fish', 'set -g CHINA_PROXY 1')
 
     def install_base_script(self, dir: str, filename: str, content: str):
         script_path = os.path.join(dir, filename)
@@ -80,7 +67,7 @@ class Cli:
         """simplify path for print in output"""
         if position == 'user_home':
             return f'~{os.path.sep}{os.path.relpath(path, env.user_home)}'
-        elif position == 'store' or position == 'store_china':
+        elif position == 'store':
             return f'.{os.path.sep}{os.path.relpath(path, env.app_root)}'
         else:
             raise TypeError(f"{position} not support")
@@ -90,8 +77,6 @@ class Cli:
             return path.user_home_path
         elif position == 'store':
             return path.store_path
-        elif position == 'store_china':
-            return path.store_china_path
         else:
             raise TypeError(f"{position} not support")
 
@@ -114,7 +99,7 @@ class Cli:
                 self.simplify_path(transfer[1], target_path)
             }''', 'info')
 
-    def glob_copy_to(self, paths: List[ConfigPath], transfer: Transfer):
+    def glob_copy_to(self, paths: list[ConfigPath], transfer: Transfer):
         self.output(f'Copy: ({transfer[0]} -> {transfer[1]}):', 'info')
         for path in paths:
             if not path.matched_platform():
@@ -149,15 +134,9 @@ class Cli:
 
     def update_to_home(self):
         self.glob_copy_to(self.config.sync_paths, ('store', 'user_home'))
-        if self.is_china:
-            self.glob_copy_to(self.config.china_sync_paths,
-                              ('store_china', 'user_home'))
         self.install_initrc()
         self.output('Done: to-home', 'info')
 
     def fetch_from_home(self):
         self.glob_copy_to(self.config.sync_paths, ('user_home', 'store'))
-        if self.is_china:
-            self.glob_copy_to(self.config.china_sync_paths,
-                              ('user_home', 'store_china'))
         self.output('Done: from-home', 'info')

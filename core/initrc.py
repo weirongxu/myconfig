@@ -1,16 +1,16 @@
 import os
 import textwrap
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 from core.io import textFs
 
 if TYPE_CHECKING:
     from .cli import Cli
 
-class InitrcLines(object):
-    lines: List[str]
+class InitrcLines:
+    lines: list[str]
 
-    def __init__(self, lines: List[str]):
+    def __init__(self, lines: list[str]):
         self.lines = lines
         self.stripped = [line.strip() for line in lines]
 
@@ -20,7 +20,7 @@ class InitrcLines(object):
             self.lines.pop()
         self.lines.append(content)
 
-class Initrc(object):
+class Initrc:
     def __init__(self, cli: 'Cli') -> None:
         self.cli = cli
         self.start_marker = '# __WR_INITRC_START__'
