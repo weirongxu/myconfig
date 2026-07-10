@@ -11,6 +11,7 @@ else
 fi
 
 source-myscript 'environment/asdf.sh'
+source-myscript 'environment/mise.sh'
 source-myscript 'environment/golang.sh'
 source-myscript 'environment/linux-brew.sh'
 source-myscript 'environment/macos-port.sh'

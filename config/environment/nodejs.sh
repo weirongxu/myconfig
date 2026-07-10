@@ -4,5 +4,5 @@
 #   try-source "$NVM_DIR/bash_completion"
 # fi
 if exists-cmd npm; then
-  add-path $(npm -g bin)
+  add-path "$(npm config get prefix)/bin"
 fi
