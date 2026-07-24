@@ -2,3 +2,5 @@
 .directory
 .tern-port
 __pycache__
+.pi/tasks
+.pi-subagents
