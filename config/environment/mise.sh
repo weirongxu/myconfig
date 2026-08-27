@@ -1,5 +1,9 @@
-if is-zsh; then
-  eval "$(/home/raidou/.local/bin/mise activate zsh)"
-else
-  eval "$(/home/raidou/.local/bin/mise activate bash)"
+#!/usr/bin/env bash
+
+if exists-cmd 'mise'; then
+  if is-zsh; then
+    eval "$(mise activate zsh)"
+  else
+    eval "$(mise activate bash)"
+  fi
 fi

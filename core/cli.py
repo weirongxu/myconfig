@@ -39,8 +39,10 @@ class Cli:
         parser = argparse.ArgumentParser(
             prog='myconfig script', description="myconfig")
         subparsers = parser.add_subparsers(required=True, dest='subcommand')
-        subparsers.add_parser('to-home')
-        subparsers.add_parser('from-home')
+        parser_to_home = subparsers.add_parser('to-home', aliases=['to'])
+        parser_to_home.set_defaults(subcommand='to-home')
+        parser_from_home = subparsers.add_parser('from-home', aliases=['from'])
+        parser_from_home.set_defaults(subcommand='from-home')
         return parser.parse_args()
 
     def install_initrc(self):
