@@ -124,6 +124,8 @@ class Cli:
                         recursive=True):
                     if self.ignored(filepath):
                         continue
+                    if os.path.isdir(filepath):
+                        continue
                     rel_target_path = os.path.relpath(filepath, source_path)
                     target_filepath = os.path.join(
                         target_path, rel_target_path)
